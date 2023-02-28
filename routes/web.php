@@ -19,3 +19,5 @@ Route::get('/', function () {
 });
 
 Route::resource('employee',EmployeeController::class);
+
+/* php artisan:make NombreModeloController -r */

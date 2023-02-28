@@ -47,33 +47,37 @@ class EmployeeController extends Controller
             'sueldo' => $request->sueldo
         ]);
 
-
         return  redirect(route('employee.index'));
-
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request,$id)
     {
-        //
+        $url = config('app.api').'/employee/'.$id;
+
+        if ($request->has('status')) {
+            Http::put($url,[
+                'nombre' => $request->nombre,
+                'apellidos' => $request->apellidos,
+                'telefono' => $request->telefono,
+                'status' => 1,
+                'sueldo' => $request->sueldo
+            ]);
+            
+            return  redirect(route('employee.index'));
+        }
+
+        $response = Http::put($url,[
+            'nombre' => $request->nombre,
+            'apellidos' => $request->apellidos,
+            'telefono' => $request->telefono,
+            'status' => 0,
+            'sueldo' => $request->sueldo
+        ]);
+
+        return  redirect(route('employee.index'));
     }
 
     /**
