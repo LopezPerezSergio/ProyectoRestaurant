@@ -1,10 +1,16 @@
 <x-app-layout>
+
     <x-siderbar>
         <section class="bg-gray-50 dark:bg-gray-900 p-4 sm:ml-64">
             <div class="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-14">
                 <!-- <div class="mx-auto max-w-screen-xl px-4 lg:px-12"> -->
                 <!-- Start coding here -->
                 <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
+
+                    <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"><span
+                            class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
+                            Modulo de Empleados</h1>
+
                     <div
                         class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                         {{-- entrada de busqueda --}}
@@ -138,8 +144,7 @@
                                         <td class="px-4 py-3">{{ $employee['status'] == '1' ? 'Activo' : 'Inactivo' }}
                                         </td>
                                         <td class="px-4 py-3 flex items-center justify-end">
-                                            <button
-                                                id="{{ $employee['id'] }}-dropdown-button"
+                                            <button id="{{ $employee['id'] }}-dropdown-button"
                                                 data-dropdown-toggle="{{ $employee['id'] }}-dropdown"
                                                 class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
                                                 type="button">
@@ -156,8 +161,7 @@
                                                     aria-labelledby="{{ $employee['id'] }}-dropdown-button">
                                                     <li>
                                                         {{-- boton de modal show --}}
-                                                        <button
-                                                            id="show{{ $employee['id'] }}ModalButton"
+                                                        <button id="show{{ $employee['id'] }}ModalButton"
                                                             data-modal-toggle="show{{ $employee['id'] }}Modal"
                                                             type="button"
                                                             class=" w-full block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -166,8 +170,7 @@
                                                     </li>
                                                     <li>
                                                         {{-- boton de modal edit --}}
-                                                        <button
-                                                            id="edit{{ $employee['id'] }}ModalButton"
+                                                        <button id="edit{{ $employee['id'] }}ModalButton"
                                                             data-modal-toggle="edit{{ $employee['id'] }}Modal"
                                                             type="button"
                                                             class=" w-full block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
