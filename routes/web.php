@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\TableController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,5 +21,6 @@ Route::get('/', function () {
 });
 
 Route::resource('employee',EmployeeController::class);
+Route::resource('table',TableController::class);
 
-/* php artisan:make NombreModeloController -r */
+/* php artisan make:controller NombreModeloController -r */ 
