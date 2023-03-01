@@ -7,7 +7,7 @@
             <!-- Modal header -->
             <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                    Empleado: {{ $nombre }}
+                     {{ $title }}
                 </h3>
                 <button type="button"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -23,45 +23,7 @@
             </div>
 
             <div class="grid gap-4 mb-4 sm:grid-cols-2">
-                <div>
-                    <label for="nombre"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-                    <input type="text" name="nombre" id="nombre"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Nombre" required="" value="{{ $nombre }}">
-                </div>
-                <div>
-                    <label for="apellidos"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellidos</label>
-                    <input type="text" name="apellidos" id="apellidos"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Product brand" required="" value="{{ $apellidos }}">
-                </div>
-                <div>
-                    <label for="telefono"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefono</label>
-                    <input type="text" name="telefono" id="telefono"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Product brand" required="" value="{{ $telefono }}">
-                </div>
-                <div>
-                    <label for="sueldo"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sueldo</label>
-                    <input type="number" name="sueldo" id="sueldo"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="$2999" required="" value="{{ $sueldo }}">
-                </div>
-                <div>
-                    <label class="relative inline-flex items-center cursor-pointer">
-                        <input name="status" id="status" type="checkbox" value="1" class="sr-only peer" @if($status == "1") checked @endif>
-                        <div
-                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
-                        </div>
-                        <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                            Estado
-                        </span>
-                    </label>
-                </div>
+                {{ $slot }}
             </div>
         </div>
     </div>

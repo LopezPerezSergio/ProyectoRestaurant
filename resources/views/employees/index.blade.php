@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <x-siderbar>
         <section class="bg-gray-50 dark:bg-gray-900 p-4 sm:ml-64">
             <div class="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-14">
@@ -341,21 +340,54 @@
                 <x-slot name="modal">
                     {{ $employee['id'] }}
                 </x-slot>
-                <x-slot name="nombre">
-                    {{ $employee['nombre'] }}
+                <x-slot name="title">
+                    Empleado:{{ $employee['nombre'] }}
                 </x-slot>
-                <x-slot name="apellidos">
-                    {{ $employee['apellidos'] }}
-                </x-slot>
-                <x-slot name="telefono">
-                    {{ $employee['telefono'] }}
-                </x-slot>
-                <x-slot name="sueldo">
-                    {{ $employee['sueldo'] }}
-                </x-slot>
-                <x-slot name="status">
-                    {{ $employee['status'] }}
-                </x-slot>
+
+                <div>
+                    <label for="nombre"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
+                    <input type="text" name="nombre" id="nombre"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="Nombre" required="" value="{{ $employee['nombre'] }}" disabled>
+                </div>
+
+                <div>
+                    <label for="apellidos"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellidos</label>
+                    <input type="text" name="apellidos" id="apellidos"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="Product brand" required="" value="{{ $employee['apellidos'] }}" disabled>
+                </div>
+
+                <div>
+                    <label for="telefono"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefono</label>
+                    <input type="text" name="telefono" id="telefono"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="Product brand" required="" value="{{ $employee['telefono'] }}" disabled>
+                </div>
+
+                <div>
+                    <label for="sueldo"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sueldo</label>
+                    <input type="number" name="sueldo" id="sueldo"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="$2999" required="" value="{{ $employee['sueldo'] }}" disabled>
+                </div>
+
+                <div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input name="status" id="status" type="checkbox" value="1" class="sr-only peer" @if($employee['status'] == "1") checked @endif disabled>
+                        <div
+                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                        </div>
+                        <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Estado
+                        </span>
+                    </label>
+                </div>
+
             </x-modal-show>
         @endforeach
 
@@ -364,25 +396,55 @@
                 <x-slot name="modal">
                     {{ $employee['id'] }}
                 </x-slot>
-                <x-slot name="nombre">
-                    {{ $employee['nombre'] }}
+                <x-slot name="url">
+                    {{ route('employee.update', $employee['id'])}}
                 </x-slot>
-                <x-slot name="apellidos">
-                    {{ $employee['apellidos'] }}
+                <x-slot name="title">
+                    Editar Empleado
                 </x-slot>
-                <x-slot name="telefono">
-                    {{ $employee['telefono'] }}
+                <x-slot name="button">
+                    Editar Empleado
                 </x-slot>
-                <x-slot name="sueldo">
-                    {{ $employee['sueldo'] }}
-                </x-slot>
-                <x-slot name="status">
-                    {{ $employee['status'] }}
-                </x-slot>
-
-                <x-slot name="id">
-                    {{ $employee['id'] }}
-                </x-slot>
+                <div>
+                    <label for="nombre"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
+                    <input type="text" name="nombre" id="nombre"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="Nombre" required="" value="{{ $employee['nombre'] }}">
+                </div>
+                <div>
+                    <label for="apellidos"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellidos</label>
+                    <input type="text" name="apellidos" id="apellidos"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="Product brand" required="" value="{{ $employee['apellidos'] }}">
+                </div>
+                <div>
+                    <label for="telefono"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefono</label>
+                    <input type="text" name="telefono" id="telefono"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="Product brand" required="" value="{{ $employee['telefono'] }}">
+                </div>
+                <div>
+                    <label for="sueldo"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sueldo</label>
+                    <input type="number" name="sueldo" id="sueldo"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="$2999" required="" value="{{ $employee['sueldo'] }}">
+                </div>
+                <div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input name="status" id="status" type="checkbox" value="1" class="sr-only peer"
+                            @if ($employee['status'] == '1') checked @endif>
+                        <div
+                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                        </div>
+                        <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Estado
+                        </span>
+                    </label>
+                </div>
             </x-modal-edit>
         @endforeach
     </x-siderbar>

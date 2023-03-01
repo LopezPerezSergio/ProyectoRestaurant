@@ -24,3 +24,4 @@ Route::resource('employee',EmployeeController::class);
 Route::resource('table',TableController::class);
 
 /* php artisan make:controller NombreModeloController -r */ 
+/* php artisan make:request NombreModeloRequest */

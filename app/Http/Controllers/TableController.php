@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TableRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -12,53 +13,65 @@ class TableController extends Controller
      */
     public function index()
     {
-        $url = config('app.api').'/table';
+        $url = config('app.api') . '/table';
 
         $response = Http::get($url);
         $tables = $response->collect('data');
 
-        //return $response;
-        return view('table.index',compact('tables'));
+        return view('tables.index', compact('tables'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TableRequest $request)
     {
-        //
-    }
+        $url = config('app.api') . '/table/';
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        if ($request->has('status')) {
+            $response = Http::post($url, [
+                'nombre' => $request->nombre,
+                'capacidad' => $request->capacidad,
+                'status' => 1,
+            ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+            return  redirect(route('table.index'));
+        }
+
+        $response = Http::post($url, [
+            'nombre' => $request->nombre,
+            'capacidad' => $request->capacidad,
+            'status' => 0,
+        ]);
+
+        return  redirect(route('table.index'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TableRequest $request, $id)
     {
-        //
+        $url = config('app.api') . '/table/'.$id;
+
+        if ($request->has('status')) {
+            $response = Http::put($url, [
+                'nombre' => $request->nombre,
+                'capacidad' => $request->capacidad,
+                'status' => 1,
+            ]);
+
+            return  redirect(route('table.index'));
+        }
+
+        $response = Http::put($url, [
+            'nombre' => $request->nombre,
+            'capacidad' => $request->capacidad,
+            'status' => 0,
+        ]);
+
+        return  redirect(route('table.index'));
     }
 
     /**
