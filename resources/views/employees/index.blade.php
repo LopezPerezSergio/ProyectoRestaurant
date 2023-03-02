@@ -146,8 +146,7 @@
                                         <td class="px-4 py-3">{{ $employee['apellidos'] }}</td>
                                         <td class="px-4 py-3">{{ $employee['telefono'] }}</td>
                                         <td class="px-4 py-3">${{ $employee['sueldo'] }}</td>
-                                        <td class="px-4 py-3">{{ $employee['status'] == '1' ? 'Activo' : 'Inactivo' }}
-                                        </td>
+                                        <td class="px-4 py-3">{{ $employee['status'] == '1' ? 'Activo' : 'Inactivo' }}</td>
                                         <td class="px-4 py-3 flex items-center justify-end">
                                             <button id="{{ $employee['id'] }}-dropdown-button"
                                                 data-dropdown-toggle="{{ $employee['id'] }}-dropdown"
@@ -252,6 +251,7 @@
                 </div>
             </div>
         </section>
+
         <!-- modal create employee -->
         <div id="createModal" tabindex="-1" aria-hidden="true"
             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
@@ -340,6 +340,7 @@
             </div>
         </div>
 
+        {{-- Modal Show --}}
         @foreach ($employees as $employee)
             <x-modal-show>
                 <x-slot name="modal">
@@ -397,20 +398,22 @@
             </x-modal-show>
         @endforeach
 
+        {{-- Modal Edit --}}
         @foreach ($employees as $employee)
             <x-modal-edit>
                 <x-slot name="modal">
                     {{ $employee['id'] }}
                 </x-slot>
+
                 <x-slot name="url">
                     {{ route('employee.update', $employee['id']) }}
                 </x-slot>
+
                 <x-slot name="title">
                     Editar Empleado
                 </x-slot>
-                <x-slot name="button">
-                    Editar Empleado
-                </x-slot>
+
+                {{-- Datos para la actualizacion --}}
                 <div>
                     <label for="nombre"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
@@ -418,6 +421,7 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Nombre" required="" value="{{ $employee['nombre'] }}">
                 </div>
+
                 <div>
                     <label for="apellidos"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellidos</label>
@@ -425,6 +429,7 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Product brand" required="" value="{{ $employee['apellidos'] }}">
                 </div>
+
                 <div>
                     <label for="telefono"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefono</label>
@@ -432,6 +437,7 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Product brand" required="" value="{{ $employee['telefono'] }}">
                 </div>
+
                 <div>
                     <label for="sueldo"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sueldo</label>
@@ -439,6 +445,7 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="$2999" required="" value="{{ $employee['sueldo'] }}">
                 </div>
+
                 <div>
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input name="status" id="status" type="checkbox" value="1" class="sr-only peer"
@@ -451,6 +458,20 @@
                         </span>
                     </label>
                 </div>
+
+                <x-modal-confirmation>
+                    <x-slot name="id">
+                        {{ $employee['id'] }}
+                    </x-slot>
+
+                    <x-slot name="button">
+                        Editar Empleado
+                    </x-slot>
+    
+                    <x-slot name="message_confirmation_modal">
+                        ¿Confirma que desea actualizar los datos del empleado {{ $employee['nombre'] }}?
+                    </x-slot>
+                </x-modal-confirmation>
             </x-modal-edit>
         @endforeach
     </x-siderbar>
