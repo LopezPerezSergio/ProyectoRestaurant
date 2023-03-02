@@ -12,12 +12,12 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $url = config('app.api').'/employee';
+        $url = config('app.api') . '/employee';
 
         $response = Http::get($url);
         $employees = $response->collect('data');
 
-        return view('employees.index',compact('employees'));
+        return view('employees.index', compact('employees'));
     }
 
     /**
@@ -25,21 +25,21 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $url = config('app.api').'/employee/';
+        $url = config('app.api') . '/employee/';
 
         if ($request->has('status')) {
-            Http::post($url,[
+            Http::post($url, [
                 'nombre' => $request->nombre,
                 'apellidos' => $request->apellidos,
                 'telefono' => $request->telefono,
                 'status' => 1,
                 'sueldo' => $request->sueldo
             ]);
-            
+
             return  redirect(route('employee.index'));
         }
 
-        $response = Http::post($url,[
+        $response = Http::post($url, [
             'nombre' => $request->nombre,
             'apellidos' => $request->apellidos,
             'telefono' => $request->telefono,
@@ -47,29 +47,32 @@ class EmployeeController extends Controller
             'sueldo' => $request->sueldo
         ]);
 
-        return  redirect(route('employee.index'));
+        $response = $response['data'];
+
+        /* redirect()->route('admin.products.index')->with('info','El producto se eliminó con éxito'); */
+        return  redirect()->route('employee.index')->with('alert', $response)->with('color', 'green');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-        $url = config('app.api').'/employee/'.$id;
+        $url = config('app.api') . '/employee/' . $id;
 
         if ($request->has('status')) {
-            Http::put($url,[
+            Http::put($url, [
                 'nombre' => $request->nombre,
                 'apellidos' => $request->apellidos,
                 'telefono' => $request->telefono,
                 'status' => 1,
                 'sueldo' => $request->sueldo
             ]);
-            
+
             return  redirect(route('employee.index'));
         }
 
-        $response = Http::put($url,[
+        $response = Http::put($url, [
             'nombre' => $request->nombre,
             'apellidos' => $request->apellidos,
             'telefono' => $request->telefono,

@@ -1,14 +1,13 @@
 <x-app-layout>
     <x-siderbar>
-        <section class="bg-gray-50 dark:bg-gray-900 p-4 sm:ml-64">
-            <div class="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-14">
-                <!-- <div class="mx-auto max-w-screen-xl px-4 lg:px-12"> -->
+        <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 sm:rounded-lg">
+            <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
                 <!-- Start coding here -->
                 <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
 
-                    <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"><span
-                            class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
-                            Modulo de Empleados</h1>
+                    <x-slot name="title">
+                        Modulo de Empleado
+                    </x-slot>
 
                     <div
                         class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
@@ -19,7 +18,8 @@
                                 <div class="relative w-full">
                                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                         <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                                            fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                            fill="currentColor" viewbox="0 0 20 20"
+                                            xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd"
                                                 d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                                                 clip-rule="evenodd" />
@@ -98,7 +98,8 @@
                                 {{-- Lista de filtracion --}}
                                 <div id="filterDropdown"
                                     class="z-10 hidden w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
-                                    <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">Choose brand</h6>
+                                    <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">Choose brand
+                                    </h6>
                                     <ul class="space-y-2 text-sm" aria-labelledby="filterDropdownButton">
                                         <li class="flex items-center">
                                             <input id="apple" type="checkbox" value=""
@@ -246,7 +247,6 @@
                 </div>
             </div>
         </section>
-
         <!-- modal create employee -->
         <div id="createModal" tabindex="-1" aria-hidden="true"
             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
@@ -378,7 +378,8 @@
 
                 <div>
                     <label class="relative inline-flex items-center cursor-pointer">
-                        <input name="status" id="status" type="checkbox" value="1" class="sr-only peer" @if($employee['status'] == "1") checked @endif disabled>
+                        <input name="status" id="status" type="checkbox" value="1" class="sr-only peer"
+                            @if ($employee['status'] == '1') checked @endif disabled>
                         <div
                             class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                         </div>
@@ -397,7 +398,7 @@
                     {{ $employee['id'] }}
                 </x-slot>
                 <x-slot name="url">
-                    {{ route('employee.update', $employee['id'])}}
+                    {{ route('employee.update', $employee['id']) }}
                 </x-slot>
                 <x-slot name="title">
                     Editar Empleado

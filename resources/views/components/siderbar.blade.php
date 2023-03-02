@@ -1,6 +1,6 @@
  <div>
      <!-- BARRA DE NAVEGACION y sidebar-->
-     
+
      <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
          <div class="px-3 py-3 lg:px-5 lg:pl-3">
              <div class="flex items-center justify-between">
@@ -87,7 +87,7 @@
                  <li>
                      <a href="{{ route('employee.index') }}"
                          class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                         
+
                          <svg aria-hidden="true"
                              class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                              fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -100,7 +100,7 @@
                  <li>
                      <a href="{{ route('table.index') }}"
                          class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                         
+
                          <svg aria-hidden="true"
                              class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                              fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -141,17 +141,17 @@
                      </a>
                  </li>
                  <li>
-                    <a href="#"
-                        class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <svg aria-hidden="true"
-                            class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                            fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                            <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-                        </svg>
-                        <span class="ml-3">Pagos</span>
-                    </a>
-                </li>
+                     <a href="#"
+                         class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                         <svg aria-hidden="true"
+                             class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                             fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                             <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
+                             <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+                         </svg>
+                         <span class="ml-3">Pagos</span>
+                     </a>
+                 </li>
                  <li>
                      <a href="#"
                          class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -182,5 +182,14 @@
          </div>
      </aside>
 
-     {{ $slot }}
+     <div class="p-4 sm:ml-64">
+        <div class=" border-gray-200 border-solid rounded-lg dark:border-gray-700 mt-14">
+            <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
+                {{ $title }}
+            </h1>
+            
+            {{ $slot }}
+         </div>
+     </div>
  </div>
