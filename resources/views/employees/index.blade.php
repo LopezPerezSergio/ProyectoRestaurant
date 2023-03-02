@@ -11,9 +11,8 @@
 
                     @if (session('alert'))
                         <x-slot name="alert">
-                            <x-alert>{{ session()->pull('alert') }}</x-alert>
+                            <x-alert>{{ session('alert') }}</x-alert>
                         </x-slot>
-
                     @endif
 
                     <div

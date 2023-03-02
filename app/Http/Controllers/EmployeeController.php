@@ -27,30 +27,16 @@ class EmployeeController extends Controller
     {
         $url = config('app.api') . '/employee/';
 
-        if ($request->has('status')) {
-            Http::post($url, [
-                'nombre' => $request->nombre,
-                'apellidos' => $request->apellidos,
-                'telefono' => $request->telefono,
-                'status' => 1,
-                'sueldo' => $request->sueldo
-            ]);
-
-            return  redirect(route('employee.index'));
-        }
-
         $response = Http::post($url, [
             'nombre' => $request->nombre,
             'apellidos' => $request->apellidos,
             'telefono' => $request->telefono,
-            'status' => 0,
+            'status' => $request->has('status') ? 1 : 0,
             'sueldo' => $request->sueldo
         ]);
-
         $response = $response['data'];
 
-        /* redirect()->route('admin.products.index')->with('info','El producto se eliminó con éxito'); */
-        return  redirect()->route('employee.index')->with('alert', $response);
+        return redirect()->route('employee.index')->with('alert', $response);
     }
 
     /**
@@ -60,27 +46,16 @@ class EmployeeController extends Controller
     {
         $url = config('app.api') . '/employee/' . $id;
 
-        if ($request->has('status')) {
-            Http::put($url, [
-                'nombre' => $request->nombre,
-                'apellidos' => $request->apellidos,
-                'telefono' => $request->telefono,
-                'status' => 1,
-                'sueldo' => $request->sueldo
-            ]);
-
-            return  redirect(route('employee.index'));
-        }
-
         $response = Http::put($url, [
             'nombre' => $request->nombre,
             'apellidos' => $request->apellidos,
             'telefono' => $request->telefono,
-            'status' => 0,
+            'status' => $request->has('status') ? 1 : 0,
             'sueldo' => $request->sueldo
         ]);
+        $response = $response['data'];
 
-        return  redirect(route('employee.index'));
+        return  redirect()->route('employee.index')->with('alert', $response);
     }
 
     /**
