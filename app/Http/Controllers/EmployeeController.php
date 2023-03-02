@@ -50,7 +50,7 @@ class EmployeeController extends Controller
         $response = $response['data'];
 
         /* redirect()->route('admin.products.index')->with('info','El producto se eliminó con éxito'); */
-        return  redirect()->route('employee.index')->with('alert', $response)->with('color', 'green');
+        return  redirect()->route('employee.index')->with('alert', $response);
     }
 
     /**
