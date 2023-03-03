@@ -29,23 +29,13 @@ class TableController extends Controller
     {
         $url = config('app.api') . '/table/';
 
-        if ($request->has('status')) {
-            $response = Http::post($url, [
-                'nombre' => $request->nombre,
-                'capacidad' => $request->capacidad,
-                'status' => 1,
-            ]);
-
-            return  redirect(route('table.index'));
-        }
-
         $response = Http::post($url, [
             'nombre' => $request->nombre,
             'capacidad' => $request->capacidad,
-            'status' => 0,
+            'status' => $request->has('status') ? 1 : 0,
         ]);
 
-        return  redirect(route('table.index'));
+        return redirect()->route('table.index')->with('alertTable', $response);
     }
 
     /**
@@ -55,23 +45,13 @@ class TableController extends Controller
     {
         $url = config('app.api') . '/table/'.$id;
 
-        if ($request->has('status')) {
-            $response = Http::put($url, [
-                'nombre' => $request->nombre,
-                'capacidad' => $request->capacidad,
-                'status' => 1,
-            ]);
-
-            return  redirect(route('table.index'));
-        }
-
         $response = Http::put($url, [
             'nombre' => $request->nombre,
             'capacidad' => $request->capacidad,
-            'status' => 0,
+            'status' => $request->has('status') ? 1 : 0,
         ]);
 
-        return  redirect(route('table.index'));
+        return redirect()->route('table.index')->with('alertTable', $response);
     }
 
     /**
