@@ -131,6 +131,7 @@
                                     <th scope="col" class="px-4 py-3">APELLIDOS</th>
                                     <th scope="col" class="px-4 py-3">TELEFONO</th>
                                     <th scope="col" class="px-4 py-3">SUELDO</th>
+                                    <th scope="col" class="px-4 py-3">CODIGO</th> 
                                     <th scope="col" class="px-4 py-3">ESTADO</th>
                                     <th scope="col" class="px-4 py-3">
                                         <span class="sr-only">Actions</span>
@@ -146,7 +147,8 @@
                                         </th>
                                         <td class="px-4 py-3">{{ $employee['apellidos'] }}</td>
                                         <td class="px-4 py-3">{{ $employee['telefono'] }}</td>
-                                        <td class="px-4 py-3">${{ $employee['sueldo'] }}</td>
+                                        <td class="px-4 py-3">{{ $employee['sueldo'] }}</td>
+                                        <td class="px-4 py-3">{{ $employee['codigo'] }}</td>
                                         <td class="px-4 py-3">{{ $employee['status'] == '1' ? 'Activo' : 'Inactivo' }}
                                         </td>
                                         <td class="px-4 py-3 flex items-center justify-end">
@@ -291,7 +293,7 @@
                                     @endif
                                     >Nombre</label>
 
-                                <input type="text" name="nombre" id="nombre"
+                                <input type="text" name="nombre" id="nombre" value="{{old('nombre')}}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Nombre" required="">
                             </div>
@@ -302,7 +304,7 @@
                                     <p id="filled_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400"><span class="font-medium">{{$errors->first('apellidos')}}</span>Ingrese los datos correctos</p>
                                     @endif
                                     >Apellidos</label>
-                                <input type="text" name="apellidos" id="apellidos"
+                                <input type="text" name="apellidos" id="apellidos"  value="{{old('apellidos')}}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Product brand" required="">
                             </div>
@@ -313,7 +315,7 @@
                                     <p id="filled_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400"><span class="font-medium">{{$errors->first('telefono')}}</span>Ingrese los datos correctos</p>
                                     @endif
                                     >Telefono</label>
-                                <input type="text" name="telefono" id="telefono"
+                                <input type="text" name="telefono" id="telefono"  value="{{old('telefono')}}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Product brand" required="">
                             </div>
@@ -324,9 +326,21 @@
                                     <p id="filled_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400"><span class="font-medium">{{$errors->first('sueldo')}}</span>Ingrese los datos correctos</p>
                                     @endif
                                     >Sueldo</label>
-                                <input type="number" name="sueldo" id="sueldo"
+                                <input type="number" name="sueldo" id="sueldo"  value="{{old('sueldo')}}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="$2999" required="">
+                            </div>
+                            <div>
+                                <label for="codigo"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    @if($errors->first('codigo'))
+                                    <p id="filled_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400"><span class="font-medium">{{$errors->first('codigo')}}</span>Ingrese los datos correctos</p>
+                                    @endif
+                                    >Codigo</label>
+
+                                <input type="text" name="codigo" id="codigo" value="{{old('codigo')}}"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="codigo" required="">
                             </div>
                             <div>
                                 <label class="relative inline-flex items-center cursor-pointer">
@@ -400,6 +414,14 @@
                 </div>
 
                 <div>
+                    <label for="codigo"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Codigo</label>
+                    <input type="number" name="codigo" id="codigo"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="$2999" required="" value="{{ $employee['codigo'] }}" disabled>
+                </div>
+
+                <div>
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input name="status" id="status" type="checkbox" value="1" class="sr-only peer"
                             @if ($employee['status'] == '1') checked @endif disabled>
@@ -456,6 +478,13 @@
                     <input type="number" name="sueldo" id="sueldo"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="$2999" required="" value="{{ $employee['sueldo'] }}">
+                </div>
+                <div>
+                    <label for="codigo"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Codigo</label>
+                    <input type="number" name="codigo" id="codigo"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="1234" required="" value="{{ $employee['codigo'] }}">
                 </div>
                 <div>
                     <label class="relative inline-flex items-center cursor-pointer">

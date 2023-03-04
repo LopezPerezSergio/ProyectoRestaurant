@@ -22,19 +22,12 @@ class EmpleadosRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nombre' => 'required|regex:/^[A-Z]|-|\s{1,50}$/',
+            'nombre' => 'required|regex:/^[A-Z][A-Z,a-z, ,á,é,í,ó,ú]+$/',
             'apellidos' => 'required|regex:/^[A-Z][A-Z,a-z, ,á,é,í,ó,ú]+$/',
             'telefono' => 'required|regex:/^[0-9]{10}$/',
-            'sueldo' => 'required|regex:/^([0-9]{1,3}\.[0-9]{2})$/'
+            'sueldo' => 'required|regex:/^([0-9]{1,3}\.[0-9]{2})$/',
+            'codigo' => 'required|numeric',
 
-        ];
-    }
-    public function messages()
-    {
-        return [
-            'nombre.required' => 'El campo nombre es obligatorio',
-            'nombre.regex' => 'El nombre debe empezar con Mayuscula, solo se admiten letras',
-            'nombre.max: 10' => 'El campo nombre solo recibe como maximo 10 caracteres',
         ];
     }
 }

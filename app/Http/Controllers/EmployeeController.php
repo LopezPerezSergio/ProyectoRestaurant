@@ -33,7 +33,10 @@ class EmployeeController extends Controller
                 'apellidos' => $request->apellidos,
                 'telefono' => $request->telefono,
                 'status' => 1,
-                'sueldo' => $request->sueldo
+                'sueldo' => $request->sueldo,
+                'codigo' => $request->codigo_acceso,
+                
+
             ]);
 
             return  redirect(route('employee.index'));
@@ -44,7 +47,8 @@ class EmployeeController extends Controller
             'apellidos' => $request->apellidos,
             'telefono' => $request->telefono,
             'status' => 0,
-            'sueldo' => $request->sueldo
+            'sueldo' => $request->sueldo,
+            'codigo' => $request->codigo_acceso,
         ]);
 
         $response = $response['data'];
@@ -66,7 +70,8 @@ class EmployeeController extends Controller
                 'apellidos' => $request->apellidos,
                 'telefono' => $request->telefono,
                 'status' => 1,
-                'sueldo' => $request->sueldo
+                'sueldo' => $request->sueldo,
+                'codigo' => $request->codigo_acceso,
             ]);
 
             return  redirect(route('employee.index'));
@@ -77,7 +82,8 @@ class EmployeeController extends Controller
             'apellidos' => $request->apellidos,
             'telefono' => $request->telefono,
             'status' => 0,
-            'sueldo' => $request->sueldo
+            'sueldo' => $request->sueldo,
+            'codigo' => $request->codigo_acceso,
         ]);
 
         return  redirect(route('employee.index'));
