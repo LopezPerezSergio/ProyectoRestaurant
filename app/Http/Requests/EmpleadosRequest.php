@@ -26,7 +26,7 @@ class EmpleadosRequest extends FormRequest
             'apellidos' => 'required|regex:/^[A-Z][A-Z,a-z, ,á,é,í,ó,ú]+$/',
             'telefono' => 'required|regex:/^[0-9]{10}$/',
             'sueldo' => 'required|regex:/^([0-9]{1,3}\.[0-9]{2})$/',
-            'codigo' => 'required|numeric',
+            'codigoAcceso' => 'required|numeric',
 
         ];
     }

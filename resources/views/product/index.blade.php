@@ -6,7 +6,7 @@
                 <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
 
                     <x-slot name="title">
-                        Modulo de Empleado
+                        Modulo de Productos
                     </x-slot>
 
                     @if (session('alert'))
@@ -33,7 +33,7 @@
                                     </div>
                                     <input type="text" id="simple-search"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="Buscar empleado" required="">
+                                        placeholder="Buscar producto" required="">
                                 </div>
                             </form>
                         </div>
@@ -48,7 +48,7 @@
                                     <path clip-rule="evenodd" fill-rule="evenodd"
                                         d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                                 </svg>
-                                Agregar Empleado
+                                Agregar Producto
                             </button>
 
                             <!-- ACTIONS AND FILTER -->
@@ -128,32 +128,35 @@
                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" class="px-4 py-3">NOMBRE</th>
-                                    <th scope="col" class="px-4 py-3">APELLIDOS</th>
-                                    <th scope="col" class="px-4 py-3">TELEFONO</th>
-                                    <th scope="col" class="px-4 py-3">SUELDO</th>
-                                    <th scope="col" class="px-4 py-3">codigoAcceso</th> 
-                                    <th scope="col" class="px-4 py-3">ESTADO</th>
+                                    <th scope="col" class="px-4 py-3">CATEGORIA</th>
+                                    <th scope="col" class="px-4 py-3">PRECIO</th>
+                                    <th scope="col" class="px-4 py-3">TAMAÑO</th>
+                                    <th scope="col" class="px-4 py-3">ESTADO</th> 
+                                    <th scope="col" class="px-4 py-3">VISTA PREVIA</th>
+                                    <th scope="col" class="px-4 py-3">TOTAL VENTAS</th>
                                     <th scope="col" class="px-4 py-3">
                                         <span class="sr-only">Actions</span>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($employees as $employee)
+                                /*
+                                @foreach ($products as $product)
                                     <tr class="border-b dark:border-gray-700">
                                         <th scope="row"
                                             class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $employee['nombre'] }}
+                                            {{ $product['nombre'] }}
                                         </th>
-                                        <td class="px-4 py-3">{{ $employee['apellidos'] }}</td>
-                                        <td class="px-4 py-3">{{ $employee['telefono'] }}</td>
-                                        <td class="px-4 py-3">{{ $employee['sueldo'] }}</td>
-                                        <td class="px-4 py-3">{{ $employee['codigoAcceso'] }}</td>
-                                        <td class="px-4 py-3">{{ $employee['status'] == '1' ? 'Activo' : 'Inactivo' }}
+                                        <td class="px-4 py-3">{{ $product['categoria'] }}</td>
+                                        <td class="px-4 py-3">{{ $product['precio'] }}</td>
+                                        <td class="px-4 py-3">{{ $product['tamaño'] }}</td>
+                                        <td class="px-4 py-3">{{ $product['imagen'] }}</td>
+                                        <td class="px-4 py-3">{{ $product['totalV'] }}</td>
+                                        <td class="px-4 py-3">{{ $product['status'] == '1' ? 'Activo' : 'Inactivo' }}
                                         </td>
                                         <td class="px-4 py-3 flex items-center justify-end">
-                                            <button id="{{ $employee['id'] }}-dropdown-button"
-                                                data-dropdown-toggle="{{ $employee['id'] }}-dropdown"
+                                            <button id="{{ $product['id'] }}-dropdown-button"
+                                                data-dropdown-toggle="{{ $product['id'] }}-dropdown"
                                                 class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
                                                 type="button">
                                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
@@ -163,14 +166,14 @@
                                                 </svg>
                                             </button>
 
-                                            <div id="{{ $employee['id'] }}-dropdown"
+                                            <div id="{{ $product['id'] }}-dropdown"
                                                 class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                                 <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                                    aria-labelledby="{{ $employee['id'] }}-dropdown-button">
+                                                    aria-labelledby="{{ $product['id'] }}-dropdown-button">
                                                     <li>
                                                         {{-- boton de modal show --}}
-                                                        <button id="show{{ $employee['id'] }}ModalButton"
-                                                            data-modal-toggle="show{{ $employee['id'] }}Modal"
+                                                        <button id="show{{ $product['id'] }}ModalButton"
+                                                            data-modal-toggle="show{{ $product['id'] }}Modal"
                                                             type="button"
                                                             class=" w-full block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                                             Ver
@@ -178,8 +181,8 @@
                                                     </li>
                                                     <li>
                                                         {{-- boton de modal edit --}}
-                                                        <button id="edit{{ $employee['id'] }}ModalButton"
-                                                            data-modal-toggle="edit{{ $employee['id'] }}Modal"
+                                                        <button id="edit{{ $product['id'] }}ModalButton"
+                                                            data-modal-toggle="edit{{ $product['id'] }}Modal"
                                                             type="button"
                                                             class=" w-full block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                                             Editar
@@ -193,65 +196,11 @@
                                             </div>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @endforeach*//
                             </tbody>
                         </table>
                     </div>
-                    {{-- <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
-                        aria-label="Table navigation">
-                        <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
-                            Showing
-                            <span class="font-semibold text-gray-900 dark:text-white">1-10</span>
-                            of
-                            <span class="font-semibold text-gray-900 dark:text-white">1000</span>
-                        </span>
-                        <ul class="inline-flex items-stretch -space-x-px">
-                            <li>
-                                <a href="#"
-                                    class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                    <span class="sr-only">Previous</span>
-                                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                            </li>
-                            <li>
-                                <a href="#" aria-current="page"
-                                    class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">100</a>
-                            </li>
-                            <li>
-                                <a href="#"
-                                    class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                    <span class="sr-only">Next</span>
-                                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav> --}}
+                    
                 </div>
             </div>
         </section>
@@ -265,7 +214,7 @@
                     <div
                         class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Nuevo Empleado
+                            Nuevo Producto
                         </h3>
                         <button type="button"
                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -281,30 +230,23 @@
                     </div>
 
                     <!-- Modal body -->
-                    <form action="{{ route('employee.store') }}" method="POST">
+                    <form 
+                    //action="{{ route('employee.store') }}" method="POST">
                         @csrf
 
                         <div class="grid gap-4 mb-4 sm:grid-cols-2">
                             <div>
                                 <label for="nombre"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                    @if($errors->first('nombre'))
-                                    <p id="filled_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400"><span class="font-medium">{{$errors->first('nombre')}}</span>Ingrese los datos correctos</p>
-                                    @endif
-                                    >Nombre</label>
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
 
                                 <input type="text" name="nombre" id="nombre" value="{{old('nombre')}}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Nombre" required="">
                             </div>
                             <div>
-                                <label for="apellidos"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                    @if($errors->first('apellidos'))
-                                    <p id="filled_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400"><span class="font-medium">{{$errors->first('apellidos')}}</span>Ingrese los datos correctos</p>
-                                    @endif
-                                    >Apellidos</label>
-                                <input type="text" name="apellidos" id="apellidos"  value="{{old('apellidos')}}"
+                                <label for="categoria"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categoria</label>
+                                <input type="text" name="categoria" id="categoria"  value="{{old('categoria')}}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Product brand" required="">
                             </div>

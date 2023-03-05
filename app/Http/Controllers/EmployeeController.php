@@ -23,22 +23,22 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(EmpleadosRequest $request)
+    public function store(Request $request)
     {
+       
         $url = config('app.api') . '/employee/';
 
         if ($request->has('status')) {
-            Http::post($url, [
+            $response=Http::post($url, [
                 'nombre' => $request->nombre,
                 'apellidos' => $request->apellidos,
                 'telefono' => $request->telefono,
                 'status' => 1,
                 'sueldo' => $request->sueldo,
-                'codigo' => $request->codigo_acceso,
+                'codigoAcceso' => $request->codigoAcceso,
                 
 
             ]);
-
             return  redirect(route('employee.index'));
         }
 
@@ -48,7 +48,7 @@ class EmployeeController extends Controller
             'telefono' => $request->telefono,
             'status' => 0,
             'sueldo' => $request->sueldo,
-            'codigo' => $request->codigo_acceso,
+            'codigoAcceso' => $request->codigoAcceso,
         ]);
 
         $response = $response['data'];
@@ -71,7 +71,7 @@ class EmployeeController extends Controller
                 'telefono' => $request->telefono,
                 'status' => 1,
                 'sueldo' => $request->sueldo,
-                'codigo' => $request->codigo_acceso,
+                'codigoAcceso' => $request->codigoAcceso,
             ]);
 
             return  redirect(route('employee.index'));
@@ -83,7 +83,7 @@ class EmployeeController extends Controller
             'telefono' => $request->telefono,
             'status' => 0,
             'sueldo' => $request->sueldo,
-            'codigo' => $request->codigo_acceso,
+            'codigoAcceso' => $request->codigoAcceso,
         ]);
 
         return  redirect(route('employee.index'));
