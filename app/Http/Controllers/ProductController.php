@@ -5,85 +5,57 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class ProductController extends Controller
+class EmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.
-     	
      */
     public function index()
     {
-         $url = config('app.api') . '/product';
+        $url = config('app.api') . '/employee';
 
         $response = Http::get($url);
         $employees = $response->collect('data');
 
-        return view('products.index', compact('products'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return view('employees.index', compact('employees'));
     }
 
     /**
      * Store a newly created resource in storage.
-     * * id	contador	nombre	precio	status	tamaño	categoria_id
      */
     public function store(Request $request)
     {
-        $url = config('app.api') . '/product/';
-
-        if ($request->has('status')) {
-            $response=Http::post($url, [
-                'nombre' => $request->nombre,
-                'precio' => $request->apellidos,
-                'tamaño' => $request->telefono,
-                'status' => 1,
-                'categoria_id' => $request->sueldo,
-            ]);
-            return  redirect(route('product.index'));
-        }
+        $url = config('app.api') . '/employee/';
 
         $response = Http::post($url, [
             'nombre' => $request->nombre,
-                'precio' => $request->apellidos,
-                'tamaño' => $request->telefono,
-                'status' => 1,
-                'categoria_id' => $request->sueldo,
+            'apellidos' => $request->apellidos,
+            'telefono' => $request->telefono,
+            'status' => $request->has('status') ? 1 : 0,
+            'sueldo' => $request->sueldo
         ]);
-
         $response = $response['data'];
 
-        /* redirect()->route('admin.products.index')->with('info','El producto se eliminó con éxito'); */
-        return  redirect()->route('product.index')->with('alert', $response);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        return redirect()->route('employee.index')->with('alert', $response);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $url = config('app.api') . '/employee/' . $id;
+
+        $response = Http::put($url, [
+            'nombre' => $request->nombre,
+            'apellidos' => $request->apellidos,
+            'telefono' => $request->telefono,
+            'status' => $request->has('status') ? 1 : 0,
+            'sueldo' => $request->sueldo
+        ]);
+        $response = $response['data'];
+
+        return  redirect()->route('employee.index')->with('alert', $response);
     }
 
     /**
