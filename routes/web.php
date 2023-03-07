@@ -22,6 +22,7 @@ Route::get('/', function () {
 
 Route::resource('employee',EmployeeController::class);
 Route::resource('table',TableController::class);
+Route::resource('product',EmployeeController::class);
 
 /* php artisan make:controller NombreModeloController -r */ 
 /* php artisan make:request NombreModeloRequest */

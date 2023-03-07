@@ -131,8 +131,7 @@
                                     <th scope="col" class="px-4 py-3">CATEGORIA</th>
                                     <th scope="col" class="px-4 py-3">PRECIO</th>
                                     <th scope="col" class="px-4 py-3">TAMAÑO</th>
-                                    <th scope="col" class="px-4 py-3">ESTADO</th> 
-                                    <th scope="col" class="px-4 py-3">VISTA PREVIA</th>
+                                    <th scope="col" class="px-4 py-3">ESTADO</th>
                                     <th scope="col" class="px-4 py-3">TOTAL VENTAS</th>
                                     <th scope="col" class="px-4 py-3">
                                         <span class="sr-only">Actions</span>
@@ -140,18 +139,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                /*
+                                //id	contador	nombre	precio	status	tamaño	categoria_id
                                 @foreach ($products as $product)
                                     <tr class="border-b dark:border-gray-700">
                                         <th scope="row"
                                             class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {{ $product['nombre'] }}
                                         </th>
-                                        <td class="px-4 py-3">{{ $product['categoria'] }}</td>
+                                        <td class="px-4 py-3">{{ $product['categoria_id'] }}</td>
                                         <td class="px-4 py-3">{{ $product['precio'] }}</td>
                                         <td class="px-4 py-3">{{ $product['tamaño'] }}</td>
-                                        <td class="px-4 py-3">{{ $product['imagen'] }}</td>
-                                        <td class="px-4 py-3">{{ $product['totalV'] }}</td>
+                                        <td class="px-4 py-3">{{ $product['contador'] }}</td>
                                         <td class="px-4 py-3">{{ $product['status'] == '1' ? 'Activo' : 'Inactivo' }}
                                         </td>
                                         <td class="px-4 py-3 flex items-center justify-end">
@@ -196,7 +194,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                @endforeach*//
+                                @endforeach*
                             </tbody>
                         </table>
                     </div>
@@ -204,7 +202,7 @@
                 </div>
             </div>
         </section>
-        <!-- modal create employee -->
+        <!-- modal create productos -->
         <div id="createModal" tabindex="-1" aria-hidden="true"
             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
             <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
@@ -230,8 +228,7 @@
                     </div>
 
                     <!-- Modal body -->
-                    <form 
-                    //action="{{ route('employee.store') }}" method="POST">
+                    <form action="{{ route('product.store') }}" method="POST">
                         @csrf
 
                         <div class="grid gap-4 mb-4 sm:grid-cols-2">
@@ -243,47 +240,39 @@
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Nombre" required="">
                             </div>
-                            <div>
-                                <label for="categoria"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categoria</label>
-                                <input type="text" name="categoria" id="categoria"  value="{{old('categoria')}}"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="Product brand" required="">
+                        
+                            <div>                                
+                                <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+                                <select id="categoria" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{old('categoria')}}">
+                                <option selected>Selecciona la Categoria</option>
+                                <option value="platillo">PLATILLO</option>
+                                <option value="bebida">BEBIDA</option>
+                                </select>
                             </div>
+
                             <div>
-                                <label for="telefono"
+                                <label for="precio"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                    @if($errors->first('telefono'))
-                                    <p id="filled_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400"><span class="font-medium">{{$errors->first('telefono')}}</span>Ingrese los datos correctos</p>
-                                    @endif
-                                    >Telefono</label>
-                                <input type="text" name="telefono" id="telefono"  value="{{old('telefono')}}"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="Product brand" required="">
-                            </div>
-                            <div>
-                                <label for="sueldo"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                    @if($errors->first('sueldo'))
+                                    @if($errors->first('precio'))
                                     <p id="filled_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400"><span class="font-medium">{{$errors->first('sueldo')}}</span>Ingrese los datos correctos</p>
                                     @endif
                                     >Sueldo</label>
-                                <input type="number" name="sueldo" id="sueldo"  value="{{old('sueldo')}}"
+                                <input type="number" name="precio" id="precio"  value="{{old('precio')}}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="$2999" required="">
                             </div>
-                            <div>
-                                <label for="codigoAcceso"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                    @if($errors->first('codigoAcceso'))
-                                    <p id="filled_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400"><span class="font-medium">{{$errors->first('codigoAcceso')}}</span>Ingrese los datos correctos</p>
-                                    @endif
-                                    >codigoAcceso</label>
-
-                                <input type="text" name="codigoAcceso" id="codigoAcceso" value="{{old('codigoAcceso')}}"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="codigoAcceso" required="">
+        
+                            <div>                                
+                                <label for="tamaño" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+                                <select id="tamaño" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{old('tamaño')}}">
+                                <option selected>Selecciona el tamaño</option>
+                                <option value="grande">Grande</option>
+                                <option value="mediano">Mediano</option>
+                                <option value="pequeño">Pequeño</option>
+                                <option value="otro">Defaul</option>
+                                </select>
                             </div>
+                           
                             <div>
                                 <label class="relative inline-flex items-center cursor-pointer">
                                     <input name="status" id="status" type="checkbox" value="1"
@@ -314,13 +303,13 @@
             </div>
         </div>
 
-        @foreach ($employees as $employee)
+        @foreach ($products as $product)
             <x-modal-show>
                 <x-slot name="modal">
-                    {{ $employee['id'] }}
+                    {{ $product['id'] }}
                 </x-slot>
                 <x-slot name="title">
-                    Empleado:{{ $employee['nombre'] }}
+                    Empleado:{{ $product['nombre'] }}
                 </x-slot>
 
                 <div>
@@ -328,45 +317,38 @@
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
                     <input type="text" name="nombre" id="nombre"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Nombre" required="" value="{{ $employee['nombre'] }}" disabled>
+                        placeholder="Nombre" required="" value="{{ $product['nombre'] }}" disabled>
                 </div>
-
+                <div>                                
+                    <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+                    <select id="categoria" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{old('categoria')}}">
+                    <option selected value="{{ $product['categoria_id'] }}" disabled>Selecciona la Categoria</option>
+                    <option value="platillo">PLATILLO</option>
+                    <option value="bebida">BEBIDA</option>
+                    </select>
+                </div>
                 <div>
-                    <label for="apellidos"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellidos</label>
-                    <input type="text" name="apellidos" id="apellidos"
+                    <label for="precio"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio</label>
+                    <input type="number" name="precio" id="precio"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Product brand" required="" value="{{ $employee['apellidos'] }}" disabled>
+                        placeholder="$2999" required="" value="{{ $product['precio'] }}" disabled>
+                </div>
+                <div>                                
+                    <label for="tamaño" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccciona el tamaño</label>
+                    <select id="tamaño" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{old('tamaño')}}">
+                    <option selected value="{{ $product['tamaño'] }}" disabled>Selecciona el tamaño</option>
+                    <option value="grande">Grande</option>
+                    <option value="mediano">Mediano</option>
+                    <option value="pequeño">Pequeño</option>
+                    <option value="otro">Defaul</option>
+                    </select>
                 </div>
 
-                <div>
-                    <label for="telefono"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefono</label>
-                    <input type="text" name="telefono" id="telefono"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Product brand" required="" value="{{ $employee['telefono'] }}" disabled>
-                </div>
-
-                <div>
-                    <label for="sueldo"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sueldo</label>
-                    <input type="number" name="sueldo" id="sueldo"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="$2999" required="" value="{{ $employee['sueldo'] }}" disabled>
-                </div>
-
-                <div>
-                    <label for="codigoAcceso"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">codigoAcceso</label>
-                    <input type="number" name="codigoAcceso" id="codigoAcceso"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="$2999" required="" value="{{ $employee['codigoAcceso'] }}" disabled>
-                </div>
-
-                <div>
+               <div>
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input name="status" id="status" type="checkbox" value="1" class="sr-only peer"
-                            @if ($employee['status'] == '1') checked @endif disabled>
+                            @if ($product['status'] == '1') checked @endif disabled>
                         <div
                             class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                         </div>
@@ -377,70 +359,6 @@
                 </div>
 
             </x-modal-show>
-        @endforeach
-
-        @foreach ($employees as $employee)
-            <x-modal-edit>
-                <x-slot name="modal">
-                    {{ $employee['id'] }}
-                </x-slot>
-                <x-slot name="url">
-                    {{ route('employee.update', $employee['id']) }}
-                </x-slot>
-                <x-slot name="title">
-                    Editar Empleado
-                </x-slot>
-                <x-slot name="button">
-                    Editar Empleado
-                </x-slot>
-                <div>
-                    <label for="nombre"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-                    <input type="text" name="nombre" id="nombre"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Nombre" required="" value="{{ $employee['nombre'] }}">
-                </div>
-                <div>
-                    <label for="apellidos"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellidos</label>
-                    <input type="text" name="apellidos" id="apellidos"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Product brand" required="" value="{{ $employee['apellidos'] }}">
-                </div>
-                <div>
-                    <label for="telefono"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefono</label>
-                    <input type="text" name="telefono" id="telefono"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Product brand" required="" value="{{ $employee['telefono'] }}">
-                </div>
-                <div>
-                    <label for="sueldo"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sueldo</label>
-                    <input type="number" name="sueldo" id="sueldo"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="$2999" required="" value="{{ $employee['sueldo'] }}">
-                </div>
-                <div>
-                    <label for="codigoAcceso"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">codigoAcceso</label>
-                    <input type="number" name="codigoAcceso" id="codigoAcceso"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="1234" required="" value="{{ $employee['codigoAcceso'] }}">
-                </div>
-                <div>
-                    <label class="relative inline-flex items-center cursor-pointer">
-                        <input name="status" id="status" type="checkbox" value="1" class="sr-only peer"
-                            @if ($employee['status'] == '1') checked @endif>
-                        <div
-                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
-                        </div>
-                        <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                            Estado
-                        </span>
-                    </label>
-                </div>
-            </x-modal-edit>
         @endforeach
     </x-siderbar>
 </x-app-layout>
