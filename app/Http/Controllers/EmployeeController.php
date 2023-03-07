@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 class EmployeeController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      */
@@ -26,7 +27,8 @@ class EmployeeController extends Controller
     public function store(EmpleadosRequest $request)
     {
         $url = config('app.api') . '/employee/';
-
+        //Validacion de los campos
+       // $request->validate($this->rules);
         $response = Http::post($url, [
             'nombre' => $request->nombre,
             'apellidos' => $request->apellidos,

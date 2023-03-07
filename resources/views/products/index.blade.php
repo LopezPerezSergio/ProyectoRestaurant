@@ -50,6 +50,7 @@
                                 </svg>
                                 Agregar Producto
                             </button>
+                            
 
                             <!-- ACTIONS AND FILTER -->
                             <div class="flex items-center space-x-3 w-full md:w-auto">
@@ -71,16 +72,11 @@
                                     <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
                                         aria-labelledby="actionsDropdownButton">
                                         <li>
-                                            <a href="#"
-                                                class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mass
-                                                Edit</a>
-                                        </li>
+                                            <a href=""
+                                                class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                Agregar Categoria</a>
+                                        </li>                        
                                     </ul>
-                                    <div class="py-1">
-                                        <a href="#"
-                                            class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete
-                                            all</a>
-                                    </div>
                                 </div>
 
                                 {{-- Boton de filtro --}}
@@ -121,7 +117,6 @@
                             <!-- FIN -->
                         </div>
                     </div>
-
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead
@@ -139,7 +134,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                //id	contador	nombre	precio	status	tamaño	categoria_id
                                 @foreach ($products as $product)
                                     <tr class="border-b dark:border-gray-700">
                                         <th scope="row"
@@ -194,7 +188,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                @endforeach*
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -242,12 +236,14 @@
                             </div>
                         
                             <div>                                
-                                <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
-                                <select id="categoria" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{old('categoria')}}">
-                                <option selected>Selecciona la Categoria</option>
-                                <option value="platillo">PLATILLO</option>
-                                <option value="bebida">BEBIDA</option>
+                                <label for="categoria_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+                                <select id="categoria_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{old('categoria')}}">
+                                <option selected value="0" >Selecciona la Categoria</option>
+                                <option value="grande">Grande</option>
+                                <option value="mediano">Mediano</option>
+                                <option value="pequeño">Pequeño</option>
                                 </select>
+                                
                             </div>
 
                             <div>

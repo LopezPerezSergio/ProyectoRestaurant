@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\TableController;
+use App\Http\Controllers\ProductController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +23,7 @@ Route::get('/', function () {
 
 Route::resource('employee',EmployeeController::class);
 Route::resource('table',TableController::class);
-Route::resource('product',EmployeeController::class);
+Route::resource('product',ProductController::class);
 
 /* php artisan make:controller NombreModeloController -r */ 
 /* php artisan make:request NombreModeloRequest */
