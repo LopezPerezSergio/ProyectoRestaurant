@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\ProductController;
@@ -24,6 +25,7 @@ Route::get('/', function () {
 Route::resource('employee',EmployeeController::class);
 Route::resource('table',TableController::class);
 Route::resource('product',ProductController::class);
+Route::resource('category',CategoryController::class);
 
 /* php artisan make:controller NombreModeloController -r */ 
 /* php artisan make:request NombreModeloRequest */

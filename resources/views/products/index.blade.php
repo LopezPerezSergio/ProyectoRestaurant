@@ -72,7 +72,7 @@
                                     <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
                                         aria-labelledby="actionsDropdownButton">
                                         <li>
-                                            <a href=""
+                                            <a href="http://127.0.0.1:8000/category"
                                                 class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                                 Agregar Categoria</a>
                                         </li>                        
@@ -236,7 +236,7 @@
                             </div>
                         
                             <div>                                
-                                <label for="categoria_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+                                <label for="categoria_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecciona una categoria</label>
                                 <select id="categoria_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{old('categoria')}}">
                                 <option selected value="0" >Selecciona la Categoria</option>
                                 <option value="grande">Grande</option>
@@ -252,21 +252,19 @@
                                     @if($errors->first('precio'))
                                     <p id="filled_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400"><span class="font-medium">{{$errors->first('sueldo')}}</span>Ingrese los datos correctos</p>
                                     @endif
-                                    >Sueldo</label>
+                                    >Precio</label>
                                 <input type="number" name="precio" id="precio"  value="{{old('precio')}}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="$2999" required="">
                             </div>
         
-                            <div>                                
-                                <label for="tamaño" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
-                                <select id="tamaño" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{old('tamaño')}}">
-                                <option selected>Selecciona el tamaño</option>
-                                <option value="grande">Grande</option>
-                                <option value="mediano">Mediano</option>
-                                <option value="pequeño">Pequeño</option>
-                                <option value="otro">Defaul</option>
-                                </select>
+                            <div>
+                                <label for="tamaño"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tamaño</label>
+
+                                <input type="text" name="tamaño" id="tamaño" value="{{old('tamaño')}}"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="Tamaño" required="">
                             </div>
                            
                             <div>
@@ -316,11 +314,9 @@
                         placeholder="Nombre" required="" value="{{ $product['nombre'] }}" disabled>
                 </div>
                 <div>                                
-                    <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+                    <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecciona una categoria</label>
                     <select id="categoria" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{old('categoria')}}">
-                    <option selected value="{{ $product['categoria_id'] }}" disabled>Selecciona la Categoria</option>
-                    <option value="platillo">PLATILLO</option>
-                    <option value="bebida">BEBIDA</option>
+                    <option selected value="{{ $product['categoria_id'] }}" disabled>Selecciona una categoria</option>
                     </select>
                 </div>
                 <div>
@@ -330,16 +326,15 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="$2999" required="" value="{{ $product['precio'] }}" disabled>
                 </div>
-                <div>                                
-                    <label for="tamaño" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seleccciona el tamaño</label>
-                    <select id="tamaño" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{old('tamaño')}}">
-                    <option selected value="{{ $product['tamaño'] }}" disabled>Selecciona el tamaño</option>
-                    <option value="grande">Grande</option>
-                    <option value="mediano">Mediano</option>
-                    <option value="pequeño">Pequeño</option>
-                    <option value="otro">Defaul</option>
-                    </select>
+                <div>
+                    <label for="tamaño"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tamaño</label>
+
+                    <input type="text" name="tamaño" id="tamaño" value="{{old('tamaño')}}"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="Tamaño" required="">
                 </div>
+               
 
                <div>
                     <label class="relative inline-flex items-center cursor-pointer">
