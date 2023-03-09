@@ -17,7 +17,6 @@ class CategoryController extends Controller
         $response = Http::get($url);
         $categories = $response->collect('data');
 
-        
         return view('categories.index', compact('categories'));
     }
 
@@ -33,8 +32,9 @@ class CategoryController extends Controller
         ]);
 
         $response = $response['data'];
+        session()->flash('alert-category', $response);
 
-        return redirect()->route('category.index')->with('alert', $response);
+        return redirect()->route('category.index');
     }
 
     /**
@@ -49,8 +49,9 @@ class CategoryController extends Controller
         ]);
 
         $response = $response['data'];
-
-        return redirect()->route('category.index')->with('alert', $response);
+        session()->flash('alert-category', $response);
+        
+        return redirect()->route('category.index');
     }
 
     /**

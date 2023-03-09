@@ -9,12 +9,12 @@
                         Modulo de Categorías
                     </x-slot>
 
-                    {{--                @if (session('alert'))
+                    @if (session('alert-category'))
                         <x-slot name="alert">
-                            <x-alert>{{ session('alert') }}</x-alert>
+                            <x-alert>{{ session('alert-category') }}</x-alert>
                         </x-slot>
                     @endif
- --}}
+
                     <div
                         class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                         {{-- entrada de busqueda --}}
@@ -81,12 +81,12 @@
                                                 class="block max-w-sm p-2 h-56 bg-yellow-300 hover:bg-yellow-200 border border-gray-200 rounded-lg shadow dark:border-gray-700"
                                                 type="button">
                                                 <h5 class="text-2xl font-bold tracking-tight text-white">
-                                                    Presiona aqui para iniciar tu orden
+                                                    Presiona aqui para visualizar la lista de {{ $category['nombre'] }}
                                                 </h5>
                                                 <figure
                                                     class="mt-4 relative max-w-sm transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0">
                                                     <img class="rounded-lg h-20 w-20 mx-auto"
-                                                        src="https://img.icons8.com/color/12x/restaurant-table.png"
+                                                        src="https://edesign4u.co.uk/wp-content/uploads/2021/07/New-Project-16-600x584.png"
                                                         alt="category">
                                                 </figure>
                                             </button>
