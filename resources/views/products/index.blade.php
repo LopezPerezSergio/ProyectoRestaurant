@@ -1,12 +1,13 @@
 <x-app-layout>
     <x-siderbar>
+
         <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 sm:rounded-lg">
             <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
                 <!-- Start coding here -->
                 <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
 
                     <x-slot name="title">
-                        Modulo de Empleado
+                        Modulo de Productos
                     </x-slot>
 
                     @if (session('alert'))
@@ -47,7 +48,7 @@
                                     <path clip-rule="evenodd" fill-rule="evenodd"
                                         d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                                 </svg>
-                                Agregar Empleado
+                                Agregar Producto
                             </button>
 
                             <!-- ACTIONS AND FILTER -->
@@ -127,31 +128,32 @@
                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" class="px-4 py-3">NOMBRE</th>
-                                    <th scope="col" class="px-4 py-3">APELLIDOS</th>
-                                    <th scope="col" class="px-4 py-3">TELEFONO</th>
-                                    <th scope="col" class="px-4 py-3">SUELDO</th>
+                                    <th scope="col" class="px-4 py-3">TAMAÑO</th>
+                                    <th scope="col" class="px-4 py-3">PRECIO</th>
                                     <th scope="col" class="px-4 py-3">ESTADO</th>
-                                    <th scope="col" class="px-4 py-3">Codigo de Acceso</th>
+                                    <th scope="col" class="px-4 py-3">CONTADOR</th>
+                                    <th scope="col" class="px-4 py-3">CATEGORIA</th>
                                     <th scope="col" class="px-4 py-3">
                                         <span class="sr-only">Actions</span>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($employees as $employee)
+                                @foreach ($products as $product)
                                     <tr class="border-b dark:border-gray-700">
                                         <th scope="row"
                                             class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $employee['nombre'] }}
+                                            {{ $product['nombre'] }}
                                         </th>
-                                        <td class="px-4 py-3">{{ $employee['apellidos'] }}</td>
-                                        <td class="px-4 py-3">{{ $employee['telefono'] }}</td>
-                                        <td class="px-4 py-3">${{ $employee['sueldo'] }}</td>
-                                        <td class="px-4 py-3">{{ $employee['status'] == '1' ? 'Activo' : 'Inactivo' }}</td>
-                                        <td class="px-4 py-3">{{ $employee['codigoAcceso'] }}</td>
+                                        <td class="px-4 py-3">{{ $product['tamaño'] }}</td>
+                                        <td class="px-4 py-3">${{ $product['precio'] }}</td>
+                                        <td class="px-4 py-3">{{ $product['status'] == '1' ? 'Activo' : 'Inactivo' }}
+                                        </td>
+                                        <td class="px-4 py-3">{{ $product['contador'] }}</td>
+                                        <td class="px-4 py-3">categoria</td>
                                         <td class="px-4 py-3 flex items-center justify-end">
-                                            <button id="{{ $employee['id'] }}-dropdown-button"
-                                                data-dropdown-toggle="{{ $employee['id'] }}-dropdown"
+                                            <button id="{{ $product['id'] }}-dropdown-button"
+                                                data-dropdown-toggle="{{ $product['id'] }}-dropdown"
                                                 class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
                                                 type="button">
                                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
@@ -161,14 +163,14 @@
                                                 </svg>
                                             </button>
 
-                                            <div id="{{ $employee['id'] }}-dropdown"
+                                            <div id="{{ $product['id'] }}-dropdown"
                                                 class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                                 <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                                    aria-labelledby="{{ $employee['id'] }}-dropdown-button">
+                                                    aria-labelledby="{{ $product['id'] }}-dropdown-button">
                                                     <li>
                                                         {{-- boton de modal show --}}
-                                                        <button id="show{{ $employee['id'] }}ModalButton"
-                                                            data-modal-toggle="show{{ $employee['id'] }}Modal"
+                                                        <button id="show{{ $product['id'] }}ModalButton"
+                                                            data-modal-toggle="show{{ $product['id'] }}Modal"
                                                             type="button"
                                                             class=" w-full block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                                             Ver
@@ -176,8 +178,8 @@
                                                     </li>
                                                     <li>
                                                         {{-- boton de modal edit --}}
-                                                        <button id="edit{{ $employee['id'] }}ModalButton"
-                                                            data-modal-toggle="edit{{ $employee['id'] }}Modal"
+                                                        <button id="edit{{ $product['id'] }}ModalButton"
+                                                            data-modal-toggle="edit{{ $product['id'] }}Modal"
                                                             type="button"
                                                             class=" w-full block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                                                             Editar
@@ -254,7 +256,7 @@
             </div>
         </section>
 
-        <!-- modal create employee -->
+        <!-- modal create  -->
         <div id="createModal" tabindex="-1" aria-hidden="true"
             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
             <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
@@ -264,7 +266,7 @@
                     <div
                         class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                            Nuevo Empleado
+                            Nuevo Producto
                         </h3>
                         <button type="button"
                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -280,7 +282,7 @@
                     </div>
 
                     <!-- Modal body -->
-                    <form action="{{ route('employee.store') }}" method="POST">
+                    <form action="{{ route('product.store') }}" method="POST">
                         @csrf
 
                         <div class="grid gap-4 mb-4 sm:grid-cols-2">
@@ -292,32 +294,43 @@
                                     placeholder="Nombre" required="">
                             </div>
                             <div>
-                                <label for="apellidos"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellidos</label>
-                                <input type="text" name="apellidos" id="apellidos"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="Product brand" required="">
+                                <label for="tamaño"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Tamaño</label>
+                                <select id="tamaño" name="tamaño"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option selected>Selecciona un tamaño</option>
+                                    <option value="S">Chico</option>
+                                    <option value="M">Mediano</option>
+                                    <option value="L">Grande</option>
+                                    <option value="XL">Familiar</option>
+                                </select>
                             </div>
                             <div>
-                                <label for="telefono"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefono</label>
-                                <input type="text" name="telefono" id="telefono"
+                                <label for="precio"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio</label>
+                                <input type="number" name="precio" id="precio"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="Product brand" required="">
+                                    placeholder="$999" required="">
                             </div>
                             <div>
-                                <label for="sueldo"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sueldo</label>
-                                <input type="number" name="sueldo" id="sueldo"
+                                <label for="contador"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contador</label>
+                                <input type="number" name="contador" id="contador"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="$2999" required="">
+                                    required="">
                             </div>
                             <div>
-                                <label for="codigoAcceso"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Codigo de Acceso</label>
-                                <input type="text" name="codigoAcceso" id="codigoAcceso"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="************" required="">
+                                <label for="categoria"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Categoria</label>
+                                <select id="categoria" name="categoria"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option selected>Selecciona un categoria</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category['id'] }}">{{ $category['nombre'] }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="my-9">
                                 <label class="relative inline-flex items-center cursor-pointer">
@@ -340,7 +353,7 @@
                                     d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                                     clip-rule="evenodd"></path>
                             </svg>
-                            Agregar Nuevo Empleado
+                            Agregar Nuevo Producto
                         </button>
                     </form>
                 </div>
@@ -348,13 +361,13 @@
         </div>
 
         {{-- Modal Show --}}
-        @foreach ($employees as $employee)
+        @foreach ($products as $product)
             <x-modal-show>
                 <x-slot name="modal">
-                    {{ $employee['id'] }}
+                    {{ $product['id'] }}
                 </x-slot>
                 <x-slot name="title">
-                    Empleado:{{ $employee['nombre'] }}
+                    Producto:{{ $product['nombre'] }}
                 </x-slot>
 
                 <div>
@@ -362,40 +375,50 @@
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
                     <input type="text" name="nombre" id="nombre"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Nombre" required="" value="{{ $employee['nombre'] }}" disabled>
+                        placeholder="Nombre" required="" value="{{ $product['nombre'] }}" disabled>
                 </div>
                 <div>
-                    <label for="apellidos"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellidos</label>
-                    <input type="text" name="apellidos" id="apellidos"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Product brand" required="" value="{{ $employee['apellidos'] }}" disabled>
+                    <label for="tamaño" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Tamaño</label>
+                    <select id="tamaño" name="tamaño"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Selecciona un tamaño</option>
+                        <option value="S">Chico</option>
+                        <option value="M">Mediano</option>
+                        <option value="L">Grande</option>
+                        <option value="XL">Familiar</option>
+                    </select>
                 </div>
                 <div>
-                    <label for="telefono"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefono</label>
-                    <input type="text" name="telefono" id="telefono"
+                    <label for="precio"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio</label>
+                    <input type="number" name="precio" id="precio"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Product brand" required="" value="{{ $employee['telefono'] }}" disabled>
+                        placeholder="$999" required="" value="{{ $product['precio'] }}" disabled>
                 </div>
                 <div>
-                    <label for="sueldo"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sueldo</label>
-                    <input type="number" name="sueldo" id="sueldo"
+                    <label for="contador"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contador</label>
+                    <input type="number" name="contador" id="contador"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="$2999" required="" value="{{ $employee['sueldo'] }}" disabled>
+                        required="" value="{{ $product['contador'] }}" disabled>
                 </div>
                 <div>
-                    <label for="codigoAcceso"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Codigo de Acceso</label>
-                    <input type="text" name="codigoAcceso" id="codigoAcceso"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="************" required="" value="{{ $employee['codigoAcceso'] }}" disabled>
+                    <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Categoria</label>
+                    <select id="categoria" name="categoria"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Selecciona un categoria</option>
+                        <option value="C1">Categoria 1</option>
+                        <option value="C2">Categoria 2</option>
+                        <option value="C3">Categoria 3</option>
+                        <option value="C4">Categoria 4</option>
+                    </select>
                 </div>
                 <div class="my-9">
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input name="status" id="status" type="checkbox" value="1" class="sr-only peer"
-                            @if ($employee['status'] == '1') checked @endif disabled>
+                            @if ($product['status'] == '1') checked @endif disabled>
                         <div
                             class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                         </div>
@@ -408,82 +431,92 @@
         @endforeach
 
         {{-- Modal Edit --}}
-        @foreach ($employees as $employee)
+        @foreach ($products as $product)
             <x-modal-edit>
                 <x-slot name="modal">
-                    {{ $employee['id'] }}
+                    {{ $product['id'] }}
                 </x-slot>
 
                 <x-slot name="url">
-                    {{ route('employee.update', $employee['id']) }}
+                    {{ route('product.update', $product['id']) }}
                 </x-slot>
 
                 <x-slot name="title">
-                    Editar Empleado
+                    Editar Producto
                 </x-slot>
 
                 {{-- Datos para la actualizacion --}}
-                <div>
+                <<div>
                     <label for="nombre"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
                     <input type="text" name="nombre" id="nombre"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Nombre" required="" value="{{ $employee['nombre'] }}">
-                </div>
-                <div>
-                    <label for="apellidos"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellidos</label>
-                    <input type="text" name="apellidos" id="apellidos"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Product brand" required="" value="{{ $employee['apellidos'] }}">
-                </div>
-                <div>
-                    <label for="telefono"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefono</label>
-                    <input type="text" name="telefono" id="telefono"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Product brand" required="" value="{{ $employee['telefono'] }}">
-                </div>
-                <div>
-                    <label for="sueldo"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sueldo</label>
-                    <input type="number" name="sueldo" id="sueldo"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="$2999" required="" value="{{ $employee['sueldo'] }}">
-                </div>
-                <div>
-                    <label for="codigoAcceso"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Codigo de Acceso</label>
-                    <input type="text" name="codigoAcceso" id="codigoAcceso"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="************" required="" value="{{ $employee['codigoAcceso'] }}" disabled>
-                </div>
-                <div class="my-9">
-                    <label class="relative inline-flex items-center cursor-pointer">
-                        <input name="status" id="status" type="checkbox" value="1" class="sr-only peer"
-                            @if ($employee['status'] == '1') checked @endif>
-                        <div
-                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
-                        </div>
-                        <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                            Estado (Activo - Inactivo)
-                        </span>
-                    </label>
-                </div>
+                        placeholder="Nombre" required="" value="{{ $product['nombre'] }}" disabled>
+                    </div>
+                    <div>
+                        <label for="tamaño" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Tamaño</label>
+                        <select id="tamaño" name="tamaño"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option selected>Selecciona un tamaño</option>
+                            <option value="S">Chico</option>
+                            <option value="M">Mediano</option>
+                            <option value="L">Grande</option>
+                            <option value="XL">Familiar</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="precio"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio</label>
+                        <input type="number" name="precio" id="precio"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            placeholder="$999" required="" value="{{ $product['precio'] }}" disabled>
+                    </div>
+                    <div>
+                        <label for="contador"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contador</label>
+                        <input type="number" name="contador" id="contador"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            required="" value="{{ $product['contador'] }}" disabled>
+                    </div>
+                    <div>
+                        <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                            Categoria</label>
+                        <select id="categoria" name="categoria"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option selected>Selecciona un categoria</option>
+                            <option value="C1">Categoria 1</option>
+                            <option value="C2">Categoria 2</option>
+                            <option value="C3">Categoria 3</option>
+                            <option value="C4">Categoria 4</option>
+                        </select>
+                    </div>
+                    <div class="my-9">
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input name="status" id="status" type="checkbox" value="1"
+                                class="sr-only peer" @if ($product['status'] == '1') checked @endif disabled>
+                            <div
+                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                            </div>
+                            <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                Estado (Activo - Inactivo)
+                            </span>
+                        </label>
+                    </div>
 
-                <x-modal-confirmation>
-                    <x-slot name="id">
-                        {{ $employee['id'] }}
-                    </x-slot>
+                    <x-modal-confirmation>
+                        <x-slot name="id">
+                            {{ $product['id'] }}
+                        </x-slot>
 
-                    <x-slot name="button">
-                        Editar Empleado
-                    </x-slot>
+                        <x-slot name="button">
+                            Editar Producto
+                        </x-slot>
 
-                    <x-slot name="message_confirmation_modal">
-                        ¿Confirma que desea actualizar los datos del empleado {{ $employee['nombre'] }}?
-                    </x-slot>
-                </x-modal-confirmation>
+                        <x-slot name="message_confirmation_modal">
+                            ¿Confirma que desea actualizar los datos del Producto {{ $product['nombre'] }}?
+                        </x-slot>
+                    </x-modal-confirmation>
             </x-modal-edit>
         @endforeach
     </x-siderbar>
