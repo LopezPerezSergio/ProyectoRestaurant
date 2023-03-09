@@ -35,7 +35,10 @@ class TableController extends Controller
             'status' => $request->has('status') ? 1 : 0,
         ]);
 
-        return redirect()->route('table.index')->with('alertTable', $response);
+        $response = $response['data'];
+        session()->flash('alert-table', $response);
+
+        return redirect()->route('table.index');
     }
 
     /**
@@ -51,7 +54,10 @@ class TableController extends Controller
             'status' => $request->has('status') ? 1 : 0,
         ]);
 
-        return redirect()->route('table.index')->with('alertTable', $response);
+        $response = $response['data'];
+        session()->flash('alert-table', $response);
+        
+        return redirect()->route('table.index');
     }
 
     /**

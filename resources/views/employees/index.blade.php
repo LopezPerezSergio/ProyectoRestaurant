@@ -9,9 +9,11 @@
                         Modulo de Empleado
                     </x-slot>
 
-                    @if (session('alert'))
+                    @if (session('alert-employee'))
                         <x-slot name="alert">
-                            <x-alert>{{ session('alert') }}</x-alert>
+                            <x-alert>
+                                {{ session('alert-employee') }}
+                            </x-alert>
                         </x-slot>
                     @endif
 
@@ -195,7 +197,7 @@
                             </tbody>
                         </table>
                     </div>
-                    {{-- <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
+                    <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
                         aria-label="Table navigation">
                         <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
                             Showing
@@ -249,7 +251,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </nav> --}}
+                    </nav>
                 </div>
             </div>
         </section>
@@ -354,7 +356,7 @@
                     {{ $employee['id'] }}
                 </x-slot>
                 <x-slot name="title">
-                    Empleado:{{ $employee['nombre'] }}
+                    Empleado: {{ $employee['nombre']. ' '. $employee['apellidos'] }} 
                 </x-slot>
 
                 <div>
@@ -456,7 +458,7 @@
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Codigo de Acceso</label>
                     <input type="text" name="codigoAcceso" id="codigoAcceso"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="************" required="" value="{{ $employee['codigoAcceso'] }}" disabled>
+                        placeholder="************" required="" value="{{ $employee['codigoAcceso'] }}">
                 </div>
                 <div class="my-9">
                     <label class="relative inline-flex items-center cursor-pointer">

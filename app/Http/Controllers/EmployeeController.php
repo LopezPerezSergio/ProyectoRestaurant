@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EmployeeRequest;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -24,7 +25,7 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(EmployeeRequest $request)
+    public function store(Request $request)
     {
         $url = config('app.api') . '/employee/';
 
@@ -33,17 +34,20 @@ class EmployeeController extends Controller
             'apellidos' => $request->apellidos,
             'telefono' => $request->telefono,
             'status' => $request->has('status') ? 1 : 0,
-            'sueldo' => $request->sueldo
+            'sueldo' => $request->sueldo,
+            'codigoAcceso' => $request->codigoAcceso
         ]);
-        $response = $response['data'];
 
-        return redirect()->route('employee.index')->with('alert', $response);
+        $response = $response['data'];
+        session()->flash('alert-employee', $response);
+
+        return redirect()->route('employee.index');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(EmployeeRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $url = config('app.api') . '/employee/' . $id;
 
@@ -52,11 +56,14 @@ class EmployeeController extends Controller
             'apellidos' => $request->apellidos,
             'telefono' => $request->telefono,
             'status' => $request->has('status') ? 1 : 0,
-            'sueldo' => $request->sueldo
+            'sueldo' => $request->sueldo,
+            'codigoAcceso' => $request->codigoAcceso
         ]);
+        
         $response = $response['data'];
+        session()->flash('alert-employee', $response);
 
-        return  redirect()->route('employee.index')->with('alert', $response);
+        return redirect()->route('employee.index');
     }
 
     /**

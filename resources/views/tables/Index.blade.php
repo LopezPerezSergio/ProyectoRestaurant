@@ -9,12 +9,14 @@
                         Modulo de Mesas
                     </x-slot>
 
-{{--                @if (session('alert'))
+                    @if (session('alert-table'))
                         <x-slot name="alert">
-                            <x-alert>{{ session('alert') }}</x-alert>
+                            <x-alert>
+                                {{ session('alert-table') }}
+                            </x-alert>
                         </x-slot>
                     @endif
- --}}
+
                     <div
                         class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                         {{-- entrada de busqueda --}}
@@ -88,10 +90,13 @@
                                                 @if ($table['status'] == '2') bg-yellow-300 hover:bg-yellow-200 @endif  {{-- Ocupado --}}
                                                 @if ($table['status'] == '0') bg-gray-500 hover:bg-gray-400 @endif    {{-- Desactivo --}} 
                                                 border border-gray-200 rounded-lg shadow dark:border-gray-700"
-                                                type="button">
+                                                type="button" @if ($table['status'] == '0') disabled @endif>
                                                 <h5 class="text-2xl font-bold tracking-tight text-white">
                                                     Presiona aqui para iniciar tu orden
                                                 </h5>
+                                                <h3 class="text-xl font-bold tracking-tight text-gray-300">
+                                                    Mesa para {{ $table['capacidad'] }}
+                                                </h3>
                                                 <figure
                                                     class="mt-4 relative max-w-sm transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0">
                                                     <img class="rounded-lg h-20 w-20 mx-auto"
@@ -105,14 +110,6 @@
                                             class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
                                             <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
                                                 aria-labelledby="{{ $table['id'] }}-dropdown-button">
-                                                <li>
-                                                    {{-- boton de modal show --}}
-                                                    <button id="show{{ $table['id'] }}ModalButton"
-                                                        data-modal-toggle="show{{ $table['id'] }}Modal" type="button"
-                                                        class=" w-full block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                        Ver
-                                                    </button>
-                                                </li>
                                                 <li>
                                                     {{-- boton de modal edit --}}
                                                     <button id="edit{{ $table['id'] }}ModalButton"
@@ -128,8 +125,6 @@
                                             </div>
                                         </div>
                                     @endforeach
-
-
                                 </div>
                             </div>
                         </div>
@@ -182,7 +177,7 @@
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Numero de personas" required="">
                             </div>
-                            <div>
+                            <div class="mt-3">
                                 <label class="relative inline-flex items-center cursor-pointer">
                                     <input name="status" id="status" type="checkbox" value="1"
                                         class="sr-only peer">
@@ -194,17 +189,20 @@
                                     </span>
                                 </label>
                             </div>
+
+                            <div>
+                                <button type="submit"
+                                    class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                    <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    Agregar Mesa
+                                </button>
+                            </div>
                         </div>
-                        <button type="submit"
-                            class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                            <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            Agregar Mesa
-                        </button>
                     </form>
                 </div>
             </div>
@@ -238,7 +236,7 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Product brand" required="" value="{{ $table['capacidad'] }}">
                 </div>
-                <div>
+                <div class="mt-3">
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input name="status" id="status" type="checkbox" value="1" class="sr-only peer"
                             @if ($table['status'] == '1' || $table['status'] == '2') checked @endif
