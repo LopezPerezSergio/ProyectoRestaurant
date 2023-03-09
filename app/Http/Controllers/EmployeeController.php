@@ -24,8 +24,9 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(EmpleadosRequest $request)
-    {
+    public function store(Request $request)
+    { 
+        return $request;
         $url = config('app.api') . '/employee/';
         //Validacion de los campos
        // $request->validate($this->rules);
@@ -47,6 +48,7 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
+      
         $url = config('app.api') . '/employee/' . $id;
 
         $response = Http::put($url, [

@@ -15,31 +15,23 @@ class CategoryController extends Controller
         $response = Http::get($url);
         $category = $response->collect('data');
        
-        return view('products.categoria', compact('category'));
+        return view('category.index', compact('category'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
-        $url = config('app.api') . '/category/';
+       // return $request;
         //Validacion de los campos
        // $request->validate($this->rules);
+        $url = config('app.api') . '/category/';
         $response = Http::post($url, [
-            'nombre' => $request->nombre,
+            'nombre' => $request->nombre
         ]);
 
         $response = $response['data'];
-        return redirect()->route('product.index')->with('alert', $response);
+        return redirect()->route('category.index')->with('alert', $response);
     }
 
     /**

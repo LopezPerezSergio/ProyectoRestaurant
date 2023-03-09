@@ -140,9 +140,9 @@
                                             class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {{ $product['nombre'] }}
                                         </th>
-                                        <td class="px-4 py-3">{{ $product['categoria_id'] }}</td>
+                                        <td class="px-4 py-3">{{ $product['categoria'] }}</td>
                                         <td class="px-4 py-3">{{ $product['precio'] }}</td>
-                                        <td class="px-4 py-3">{{ $product['tamaño'] }}</td>
+                                        <td class="px-4 py-3">{{ $product['tamanio'] }}</td>
                                         <td class="px-4 py-3">{{ $product['contador'] }}</td>
                                         <td class="px-4 py-3">{{ $product['status'] == '1' ? 'Activo' : 'Inactivo' }}
                                         </td>
@@ -236,12 +236,12 @@
                             </div>
                         
                             <div>                                
-                                <label for="categoria_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecciona una categoria</label>
-                                <select id="categoria_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{old('categoria')}}">
-                                <option selected value="0" >Selecciona la Categoria</option>
-                                <option value="grande">Grande</option>
-                                <option value="mediano">Mediano</option>
-                                <option value="pequeño">Pequeño</option>
+                                <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecciona una categoria</label>
+                                <select id="categoria" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{old('categoria')}}">
+                                    @foreach($category as $categoria)
+                                        <option value="{{$categoria[id]}}">{{$categoria['nombre']}}</option>
+                                    @endforeach
+                                <option selected >Selecciona la Categoria</option>
                                 </select>
                                 
                             </div>
@@ -259,10 +259,10 @@
                             </div>
         
                             <div>
-                                <label for="tamaño"
+                                <label for="tamanio"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tamaño</label>
 
-                                <input type="text" name="tamaño" id="tamaño" value="{{old('tamaño')}}"
+                                <input type="text" name="tamanio" id="tamanio" value="{{old('tamanio')}}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Tamaño" required="">
                             </div>
@@ -290,7 +290,7 @@
                                     d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                                     clip-rule="evenodd"></path>
                             </svg>
-                            Agregar Nuevo Empleado
+                            Agregar Nuevo Producto
                         </button>
                     </form>
                 </div>
@@ -303,7 +303,7 @@
                     {{ $product['id'] }}
                 </x-slot>
                 <x-slot name="title">
-                    Empleado:{{ $product['nombre'] }}
+                    Producto:{{ $product['nombre'] }}
                 </x-slot>
 
                 <div>
@@ -316,7 +316,7 @@
                 <div>                                
                     <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecciona una categoria</label>
                     <select id="categoria" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{old('categoria')}}">
-                    <option selected value="{{ $product['categoria_id'] }}" disabled>Selecciona una categoria</option>
+                    <option selected value="{{ $product['categoria'] }}" disabled>Selecciona una categoria</option>
                     </select>
                 </div>
                 <div>
@@ -327,10 +327,10 @@
                         placeholder="$2999" required="" value="{{ $product['precio'] }}" disabled>
                 </div>
                 <div>
-                    <label for="tamaño"
+                    <label for="tamanio"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tamaño</label>
 
-                    <input type="text" name="tamaño" id="tamaño" value="{{old('tamaño')}}"
+                    <input type="text" name="tamanio" id="tamanio" value="{{old('tamanio')}}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Tamaño" required="">
                 </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Http;
 
 class ProductController extends Controller
@@ -16,30 +17,30 @@ class ProductController extends Controller
        
         
         $url = config('app.api') . '/product';
+        //$url = config('app.api') . '/category';
         $response = Http::get($url);
         $products = $response->collect('data');
-       
-        return view('products.index', compact('products'));
+        $category = $response->collect('data');
+        return view('products.index', compact('products','category'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {   return $request;
         $url = config('app.api') . '/product/';
-
+        
         $response = Http::post($url, [
             'nombre' => $request->nombre,
-            'categoria_id' => $request->apellidos,
+            'categoria' => $request->categoria,
             'precio' => $request->precio,
             'status' => $request->has('status') ? 1 : 0,
-            'tamaño'=> $request->tamaño,
+            'tamanio'=> $request->tamanio,
             'contador' => $request->contador
             
         ]);
         $response = $response['data'];
-
         return redirect()->route('product.index')->with('alert', $response);
     }
 
