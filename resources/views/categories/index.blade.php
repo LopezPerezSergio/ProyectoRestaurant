@@ -55,7 +55,7 @@
                     <div class="overflow-x-auto">
                         <div class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <div class="uppercase">
-                                <div class="p-4     grid grid-cols-2 gap-4 mb-4 md:grid-cols-4">
+                                <div class="p-4 grid grid-cols-2 gap-4 mb-4 md:grid-cols-4">
                                     @foreach ($categories as $category)
                                         <div class="max-w-sm rounded-lg shadow bg-yellow-300">
                                             <div class="w-full max-w-sm p-2">
@@ -80,13 +80,13 @@
                                             <button
                                                 class="block max-w-sm p-2 h-56 bg-yellow-300 hover:bg-yellow-200 border border-gray-200 rounded-lg shadow dark:border-gray-700"
                                                 type="button">
-                                                <h5 class="text-2xl font-bold tracking-tight text-white">
+                                                <h5 class="text-xl font-bold tracking-tight text-white">
                                                     Presiona aqui para visualizar la lista de {{ $category['nombre'] }}
                                                 </h5>
                                                 <figure
-                                                    class="mt-4 relative max-w-sm transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0">
-                                                    <img class="rounded-lg h-20 w-20 mx-auto"
-                                                        src="https://edesign4u.co.uk/wp-content/uploads/2021/07/New-Project-16-600x584.png"
+                                                    class="mt-2 relative max-w-sm transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0">
+                                                    <img class="rounded-lg h-28 w-28 mx-auto"
+                                                        src="https://create.vista.com/s3-static/create/uploads/2022/09/cool-menu-examples.webp"
                                                         alt="category">
                                                 </figure>
                                             </button>

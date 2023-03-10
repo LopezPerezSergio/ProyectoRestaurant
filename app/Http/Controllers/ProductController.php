@@ -13,12 +13,10 @@ class ProductController extends Controller
     public function index()
     {
         $url = config('app.api') . '/category';
-
         $response = Http::get($url);
         $categories = $response->collect('data');
 
         $url = config('app.api') . '/product';
-
         $response = Http::get($url);
         $products = $response->collect('data');
 
@@ -31,43 +29,59 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;    
-        $url = config('app.api') . '/product/';
+        $url = config('app.api') . '/category/'.$request->categoria;
+        $response = Http::get($url);
+        
+        $category = $response->collect('data');
+        $category = ['id' => $category['id'], 'nombre' =>  $category['nombre']];  
 
+        $url = config('app.api') . '/product';
+        
         $response = Http::post($url, [
             'nombre' => $request->nombre,
-            'apellidos' => $request->apellidos,
-            'telefono' => $request->telefono,
+            'tamaño' => $request->tamaño,
+            'precio' => $request->precio,
             'status' => $request->has('status') ? 1 : 0,
-            'sueldo' => $request->sueldo
+            'contador' => 0,
+            'categoria' => $category
         ]);
+
         $response = $response['data'];
 
-        return redirect()->route('product.index')->with('alert', $response);
-    }
+        //Cambiar el mensaje cunado se programe el data
+        session()->flash('alert-product', 'Producto agregada');
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        return redirect()->route('product.index');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $url = config('app.api') . '/category/'.$request->categoria;
+        $response = Http::get($url);
+        
+        $category = $response->collect('data');
+        $category = ['id' => $category['id'], 'nombre' =>  $category['nombre']];  
+
+        $url = config('app.api') . '/product/'.$id;
+        
+        $response = Http::post($url, [
+            'nombre' => $request->nombre,
+            'tamaño' => $request->tamaño,
+            'precio' => $request->precio,
+            'status' => $request->has('status') ? 1 : 0,
+            'contador' => 0,
+            'categoria' => $category
+        ]);
+
+        $response = $response['data'];
+
+        //Cambiar el mensaje cunado se programe el data
+        session()->flash('alert-product', 'Producto agregada');
+
+        return redirect()->route('product.index');
     }
 
     /**

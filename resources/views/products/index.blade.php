@@ -10,9 +10,9 @@
                         Modulo de Productos
                     </x-slot>
 
-                    @if (session('alert'))
+                    @if (session('alert-product'))
                         <x-slot name="alert">
-                            <x-alert>{{ session('alert') }}</x-alert>
+                            <x-alert>{{ session('alert-product') }}</x-alert>
                         </x-slot>
                     @endif
 
@@ -131,8 +131,9 @@
                                     <th scope="col" class="px-4 py-3">TAMAÑO</th>
                                     <th scope="col" class="px-4 py-3">PRECIO</th>
                                     <th scope="col" class="px-4 py-3">ESTADO</th>
-                                    <th scope="col" class="px-4 py-3">CONTADOR</th>
+                                    <th scope="col" class="px-4 py-3">VENDIDOS EN EL DIA</th>
                                     <th scope="col" class="px-4 py-3">CATEGORIA</th>
+                                    <th scope="col" class="px-4 py-3">IMAGEN</th>
                                     <th scope="col" class="px-4 py-3">
                                         <span class="sr-only">Actions</span>
                                     </th>
@@ -151,6 +152,14 @@
                                         </td>
                                         <td class="px-4 py-3">{{ $product['contador'] }}</td>
                                         <td class="px-4 py-3">categoria</td>
+                                        <td class="px-4 py-3">
+                                            <figure
+                                                class="mt-2 relative max-w-sm transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0">
+                                                <img class="rounded-lg h-28 w-28 mx-auto"
+                                                    src="https://create.vista.com/s3-static/create/uploads/2022/09/cool-menu-examples.webp"
+                                                    alt="category">
+                                            </figure>
+                                        </td>
                                         <td class="px-4 py-3 flex items-center justify-end">
                                             <button id="{{ $product['id'] }}-dropdown-button"
                                                 data-dropdown-toggle="{{ $product['id'] }}-dropdown"
@@ -197,7 +206,7 @@
                             </tbody>
                         </table>
                     </div>
-                    {{-- <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
+                    <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
                         aria-label="Table navigation">
                         <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
                             Showing
@@ -251,7 +260,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </nav> --}}
+                    </nav>
                 </div>
             </div>
         </section>
@@ -314,13 +323,6 @@
                                     placeholder="$999" required="">
                             </div>
                             <div>
-                                <label for="contador"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contador</label>
-                                <input type="number" name="contador" id="contador"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    required="">
-                            </div>
-                            <div>
                                 <label for="categoria"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Categoria</label>
@@ -332,7 +334,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="my-9">
+                            <div class="my-3">
                                 <label class="relative inline-flex items-center cursor-pointer">
                                     <input name="status" id="status" type="checkbox" value="1"
                                         class="sr-only peer ">
@@ -344,17 +346,20 @@
                                     </span>
                                 </label>
                             </div>
+
+                            <div>
+                                <button type="submit"
+                                    class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                    <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    Agregar Nuevo Producto
+                                </button>
+                            </div>
                         </div>
-                        <button type="submit"
-                            class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                            <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            Agregar Nuevo Producto
-                        </button>
                     </form>
                 </div>
             </div>
@@ -367,7 +372,7 @@
                     {{ $product['id'] }}
                 </x-slot>
                 <x-slot name="title">
-                    Producto:{{ $product['nombre'] }}
+                    Producto:{{ $product['nombre'] }} - Vendidos durante el dia: {{ $product['contador'] }}
                 </x-slot>
 
                 <div>
@@ -380,13 +385,21 @@
                 <div>
                     <label for="tamaño" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Tamaño</label>
-                    <select id="tamaño" name="tamaño"
+                    <select disabled id="tamaño" name="tamaño"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option selected>Selecciona un tamaño</option>
-                        <option value="S">Chico</option>
-                        <option value="M">Mediano</option>
-                        <option value="L">Grande</option>
-                        <option value="XL">Familiar</option>
+                        <option value="">
+                            @if ($product['tamaño'] == 'S')
+                                Chico
+                            @endif
+                            @if ($product['tamaño'] == 'M')
+                                Mediano
+                            @endif
+                            @if ($product['tamaño'] == 'L')
+                                Grande
+                            @else
+                                Familiar
+                            @endif
+                        </option>
                     </select>
                 </div>
                 <div>
@@ -397,22 +410,14 @@
                         placeholder="$999" required="" value="{{ $product['precio'] }}" disabled>
                 </div>
                 <div>
-                    <label for="contador"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contador</label>
-                    <input type="number" name="contador" id="contador"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        required="" value="{{ $product['contador'] }}" disabled>
-                </div>
-                <div>
                     <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Categoria</label>
-                    <select id="categoria" name="categoria"
+                    <select disabled id="categoria" name="categoria"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option selected>Selecciona un categoria</option>
-                        <option value="C1">Categoria 1</option>
-                        <option value="C2">Categoria 2</option>
-                        <option value="C3">Categoria 3</option>
-                        <option value="C4">Categoria 4</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category['id'] }}">{{ $category['nombre'] }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="my-9">
@@ -446,23 +451,32 @@
                 </x-slot>
 
                 {{-- Datos para la actualizacion --}}
-                <<div>
+                <div>
                     <label for="nombre"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
                     <input type="text" name="nombre" id="nombre"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Nombre" required="" value="{{ $product['nombre'] }}" disabled>
+                        placeholder="Nombre" required="" value="{{ $product['nombre'] }}" >
                     </div>
                     <div>
                         <label for="tamaño" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Tamaño</label>
                         <select id="tamaño" name="tamaño"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option selected>Selecciona un tamaño</option>
-                            <option value="S">Chico</option>
-                            <option value="M">Mediano</option>
-                            <option value="L">Grande</option>
-                            <option value="XL">Familiar</option>
+                            <option>Selecciona un tamaño</option>
+                            <option value="S" @if ($product['tamaño'] == 'S') selected @endif>Chico</option>
+                            <option value="M" @if ($product['tamaño'] == 'M') selected @endif>Mediano</option>
+                            <option value="L" @if ($product['tamaño'] == 'L') selected @endif>Grande</option>
+                            <option value="XL" @if ($product['tamaño'] == 'XL') selected @endif>Familiar</option>
+
+                            @if ($product['tamaño'] == 'M')
+                                Mediano
+                            @endif
+                            @if ($product['tamaño'] == 'L')
+                                Grande
+                            @else
+                                Familiar
+                            @endif
                         </select>
                     </div>
                     <div>
@@ -470,14 +484,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio</label>
                         <input type="number" name="precio" id="precio"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="$999" required="" value="{{ $product['precio'] }}" disabled>
-                    </div>
-                    <div>
-                        <label for="contador"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contador</label>
-                        <input type="number" name="contador" id="contador"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            required="" value="{{ $product['contador'] }}" disabled>
+                            placeholder="$999" required="" value="{{ $product['precio'] }}" >
                     </div>
                     <div>
                         <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -485,16 +492,15 @@
                         <select id="categoria" name="categoria"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option selected>Selecciona un categoria</option>
-                            <option value="C1">Categoria 1</option>
-                            <option value="C2">Categoria 2</option>
-                            <option value="C3">Categoria 3</option>
-                            <option value="C4">Categoria 4</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category['id'] }}">{{ $category['nombre'] }}</option>
+                            @endforeach
                         </select>
                     </div>
-                    <div class="my-9">
+                    <div class="my-3">
                         <label class="relative inline-flex items-center cursor-pointer">
                             <input name="status" id="status" type="checkbox" value="1"
-                                class="sr-only peer" @if ($product['status'] == '1') checked @endif disabled>
+                                class="sr-only peer" @if ($product['status'] == '1') checked @endif >
                             <div
                                 class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                             </div>
