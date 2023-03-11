@@ -371,7 +371,7 @@
                                     <figure
                                         class="mt-2 relative max-w-sm transition-all duration-300 cursor-pointer filter ">
                                         <img id="image" class="rounded-lg w-56 mx-auto"
-                                            src="https://c.tfstatic.com/w_689,h_538,c_fill,g_auto:subject,q_auto,f_auto/tf-product/homepage-hero/es-ES">
+                                            src="{{ Storage::url('images/base_image_productos.png') }}">
                                     </figure>
                                 </label>
                             </div>
