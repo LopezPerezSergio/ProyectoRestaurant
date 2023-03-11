@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+
 class CategoryController extends Controller
 {
     /**
@@ -12,50 +13,45 @@ class CategoryController extends Controller
     public function index()
     {
         $url = config('app.api') . '/category';
+
         $response = Http::get($url);
-        $category = $response->collect('data');
-       
-        return view('category.index', compact('category'));
+        $categories = $response->collect('data');
+
+        return view('categories.index', compact('categories'));
     }
 
-
-
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
-       // return $request;
-        //Validacion de los campos
-       // $request->validate($this->rules);
-        $url = config('app.api') . '/category/';
+        $url = config('app.api') . '/category';
+
         $response = Http::post($url, [
-            'nombre' => $request->nombre
+            'nombre' => $request->nombre,
         ]);
 
         $response = $response['data'];
-        return redirect()->route('category.index')->with('alert', $response);
-    }
+        session()->flash('alert-category', $response);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        return redirect()->route('category.index');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request,$id)
     {
-        //
+        $url = config('app.api') . '/category/'.$id;
+
+        $response = Http::put($url, [
+            'nombre' => $request->nombre,
+        ]);
+
+        $response = $response['data'];
+        session()->flash('alert-category', $response);
+        
+        return redirect()->route('category.index');
     }
 
     /**

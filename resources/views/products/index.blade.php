@@ -1,5 +1,6 @@
 <x-app-layout>
     <x-siderbar>
+
         <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 sm:rounded-lg">
             <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
                 <!-- Start coding here -->
@@ -9,11 +10,10 @@
                         Modulo de Productos
                     </x-slot>
 
-                    @if (session('alert'))
+                    @if (session('alert-product'))
                         <x-slot name="alert">
-                            <x-alert>{{ session()->pull('alert') }}</x-alert>
+                            <x-alert>{{ session('alert-product') }}</x-alert>
                         </x-slot>
-
                     @endif
 
                     <div
@@ -33,7 +33,7 @@
                                     </div>
                                     <input type="text" id="simple-search"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                        placeholder="Buscar producto" required="">
+                                        placeholder="Buscar empleado" required="">
                                 </div>
                             </form>
                         </div>
@@ -50,7 +50,6 @@
                                 </svg>
                                 Agregar Producto
                             </button>
-                            
 
                             <!-- ACTIONS AND FILTER -->
                             <div class="flex items-center space-x-3 w-full md:w-auto">
@@ -72,11 +71,16 @@
                                     <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
                                         aria-labelledby="actionsDropdownButton">
                                         <li>
-                                            <a href="http://127.0.0.1:8000/category"
-                                                class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                Agregar Categoria</a>
-                                        </li>                        
+                                            <a href="#"
+                                                class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mass
+                                                Edit</a>
+                                        </li>
                                     </ul>
+                                    <div class="py-1">
+                                        <a href="#"
+                                            class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete
+                                            all</a>
+                                    </div>
                                 </div>
 
                                 {{-- Boton de filtro --}}
@@ -117,17 +121,19 @@
                             <!-- FIN -->
                         </div>
                     </div>
+
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead
                                 class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
                                     <th scope="col" class="px-4 py-3">NOMBRE</th>
-                                    <th scope="col" class="px-4 py-3">CATEGORIA</th>
-                                    <th scope="col" class="px-4 py-3">PRECIO</th>
                                     <th scope="col" class="px-4 py-3">TAMAÑO</th>
+                                    <th scope="col" class="px-4 py-3">PRECIO</th>
                                     <th scope="col" class="px-4 py-3">ESTADO</th>
-                                    <th scope="col" class="px-4 py-3">TOTAL VENTAS</th>
+                                    <th scope="col" class="px-4 py-3">VENDIDOS EN EL DIA</th>
+                                    <th scope="col" class="px-4 py-3">CATEGORIA</th>
+                                    <th scope="col" class="px-4 py-3">IMAGEN</th>
                                     <th scope="col" class="px-4 py-3">
                                         <span class="sr-only">Actions</span>
                                     </th>
@@ -140,11 +146,34 @@
                                             class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {{ $product['nombre'] }}
                                         </th>
-                                        <td class="px-4 py-3">{{ $product['categoria'] }}</td>
-                                        <td class="px-4 py-3">{{ $product['precio'] }}</td>
-                                        <td class="px-4 py-3">{{ $product['tamanio'] }}</td>
-                                        <td class="px-4 py-3">{{ $product['contador'] }}</td>
+                                        <td class="px-4 py-3">
+                                            @if ($product['tamanio'] == 'S')
+                                                Chico
+                                            @endif
+                                            @if ($product['tamanio'] == 'M')
+                                                Mediano
+                                            @endif
+                                            @if ($product['tamanio'] == 'L')
+                                                Grande
+                                            @endif
+                                            @if ($product['tamanio'] == 'XL')
+                                                Familiar
+                                            @endif
+                                        </td>
+                                        <td class="px-4 py-3">${{ $product['precio'] }}</td>
                                         <td class="px-4 py-3">{{ $product['status'] == '1' ? 'Activo' : 'Inactivo' }}
+                                        </td>
+                                        <td class="px-4 py-3">{{ $product['contador'] }}</td>
+                                        <td class="px-4 py-3">categoria</td>
+                                        <td class="px-4 py-3">
+                                            <figure
+                                                class="mt-2 relative max-w-sm transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0">
+                                                <img class="rounded-lg h-28 w-28 mx-auto"
+                                                    {{-- src="https://create.vista.com/s3-static/create/uploads/2022/09/cool-menu-examples.webp"
+                                                     --}}
+                                                     src="{{ Storage::url($product['url_img']) }}"
+                                                     alt="category">
+                                            </figure>
                                         </td>
                                         <td class="px-4 py-3 flex items-center justify-end">
                                             <button id="{{ $product['id'] }}-dropdown-button"
@@ -192,11 +221,66 @@
                             </tbody>
                         </table>
                     </div>
-                    
+                    <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
+                        aria-label="Table navigation">
+                        <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
+                            Showing
+                            <span class="font-semibold text-gray-900 dark:text-white">1-10</span>
+                            of
+                            <span class="font-semibold text-gray-900 dark:text-white">1000</span>
+                        </span>
+                        <ul class="inline-flex items-stretch -space-x-px">
+                            <li>
+                                <a href="#"
+                                    class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                    <span class="sr-only">Previous</span>
+                                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
+                            </li>
+                            <li>
+                                <a href="#" aria-current="page"
+                                    class="flex items-center justify-center text-sm z-10 py-2 px-3 leading-tight text-primary-600 bg-primary-50 border border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">100</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                    <span class="sr-only">Next</span>
+                                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </section>
-        <!-- modal create productos -->
+
+        <!-- modal create  -->
         <div id="createModal" tabindex="-1" aria-hidden="true"
             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
             <div class="relative p-4 w-full max-w-2xl h-full md:h-auto">
@@ -222,88 +306,99 @@
                     </div>
 
                     <!-- Modal body -->
-                    <form action="{{ route('product.store') }}" method="POST">
+                    <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="grid gap-4 mb-4 sm:grid-cols-2">
                             <div>
                                 <label for="nombre"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
-
-                                <input type="text" name="nombre" id="nombre" value="{{old('nombre')}}"
+                                <input type="text" name="nombre" id="nombre"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Nombre" required="">
                             </div>
-                        
-                            <div>                                
-                                <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecciona una categoria</label>
-                                <select id="categoria" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{old('categoria')}}">
-                                    @foreach($category as $categoria)
-                                        <option value="{{$categoria[id]}}">{{$categoria['nombre']}}</option>
-                                    @endforeach
-                                <option selected >Selecciona la Categoria</option>
-                                </select>
-                                
-                            </div>
-
-                            <div>
-                                <label for="precio"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                    @if($errors->first('precio'))
-                                    <p id="filled_error_help" class="mt-2 text-xs text-red-600 dark:text-red-400"><span class="font-medium">{{$errors->first('sueldo')}}</span>Ingrese los datos correctos</p>
-                                    @endif
-                                    >Precio</label>
-                                <input type="number" name="precio" id="precio"  value="{{old('precio')}}"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="$2999" required="">
-                            </div>
-        
                             <div>
                                 <label for="tamanio"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tamaño</label>
-
-                                <input type="text" name="tamanio" id="tamanio" value="{{old('tamanio')}}"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="Tamaño" required="">
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Tamaño</label>
+                                <select id="tamanio" name="tamanio"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option selected>Selecciona un tamaño</option>
+                                    <option value="S">Chico</option>
+                                    <option value="M">Mediano</option>
+                                    <option value="L">Grande</option>
+                                    <option value="XL">Familiar</option>
+                                </select>
                             </div>
-                           
                             <div>
+                                <label for="precio"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio</label>
+                                <input type="number" name="precio" id="precio"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                    placeholder="$999" required="">
+                            </div>
+                            <div>
+                                <label for="categoria"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Categoria</label>
+                                <select id="categoria" name="categoria"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option selected>Selecciona un categoria</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category['id'] }}">{{ $category['nombre'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="my-3">
                                 <label class="relative inline-flex items-center cursor-pointer">
                                     <input name="status" id="status" type="checkbox" value="1"
-                                        class="sr-only peer">
+                                        class="sr-only peer ">
                                     <div
                                         class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                                     </div>
                                     <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                        Estado
+                                        Estado (Activo - Inactivo)
                                     </span>
                                 </label>
-
                             </div>
 
+                            <div class="col-span-2 flex items-center justify-center w-full">
+                                <label for="url_img" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                        <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                    </div>
+                                    <input id="url_img" name="url_img" type="file" class="hidden" accept="image/*"/>
+                                </label>
+                            </div> 
+                            
+                            <div>
+                                <button type="submit"
+                                    class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                    <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    Agregar Nuevo Producto
+                                </button>
+                            </div>
                         </div>
-                        <button type="submit"
-                            class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                            <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            Agregar Nuevo Producto
-                        </button>
                     </form>
                 </div>
             </div>
         </div>
 
+        {{-- Modal Show --}}
         @foreach ($products as $product)
             <x-modal-show>
                 <x-slot name="modal">
                     {{ $product['id'] }}
                 </x-slot>
                 <x-slot name="title">
-                    Producto:{{ $product['nombre'] }}
+                    Producto:{{ $product['nombre'] }} - Vendidos durante el dia: {{ $product['contador'] }}
                 </x-slot>
 
                 <div>
@@ -313,10 +408,25 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="Nombre" required="" value="{{ $product['nombre'] }}" disabled>
                 </div>
-                <div>                                
-                    <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Selecciona una categoria</label>
-                    <select id="categoria" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{old('categoria')}}">
-                    <option selected value="{{ $product['categoria'] }}" disabled>Selecciona una categoria</option>
+                <div>
+                    <label for="tamanio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Tamaño</label>
+                    <select disabled id="tamanio" name="tamanio"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="">
+                            @if ($product['tamanio'] == 'S')
+                                Chico
+                            @endif
+                            @if ($product['tamanio'] == 'M')
+                                Mediano
+                            @endif
+                            @if ($product['tamanio'] == 'L')
+                                Grande
+                            @endif
+                            @if ($product['tamanio'] == 'XL')
+                                Familiar
+                            @endif
+                        </option>
                     </select>
                 </div>
                 <div>
@@ -324,19 +434,20 @@
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio</label>
                     <input type="number" name="precio" id="precio"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="$2999" required="" value="{{ $product['precio'] }}" disabled>
+                        placeholder="$999" required="" value="{{ $product['precio'] }}" disabled>
                 </div>
                 <div>
-                    <label for="tamanio"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tamaño</label>
-
-                    <input type="text" name="tamanio" id="tamanio" value="{{old('tamanio')}}"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Tamaño" required="">
+                    <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Categoria</label>
+                    <select disabled id="categoria" name="categoria"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Selecciona un categoria</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category['id'] }}">{{ $category['nombre'] }}</option>
+                        @endforeach
+                    </select>
                 </div>
-               
-
-               <div>
+                <div class="my-9">
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input name="status" id="status" type="checkbox" value="1" class="sr-only peer"
                             @if ($product['status'] == '1') checked @endif disabled>
@@ -344,12 +455,103 @@
                             class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
                         </div>
                         <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                            Estado
+                            Estado (Activo - Inactivo)
+                        </span>
+                    </label>
+                </div>
+            </x-modal-show>
+        @endforeach
+
+        {{-- Modal Edit --}}
+        @foreach ($products as $product)
+            <x-modal-edit>
+                <x-slot name="modal">
+                    {{ $product['id'] }}
+                </x-slot>
+
+                <x-slot name="url">
+                    {{ route('product.update', $product['id']) }}
+                </x-slot>
+
+                <x-slot name="title">
+                    Editar Producto
+                </x-slot>
+
+                {{-- Datos para la actualizacion --}}
+                <div>
+                    <label for="nombre"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
+                    <input type="text" name="nombre" id="nombre"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="Nombre" required="" value="{{ $product['nombre'] }}">
+                </div>
+                <div>
+                    <label for="tamanio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Tamaño</label>
+                    <select id="tamanio" name="tamanio"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option>Selecciona un tamaño</option>
+                        <option value="S" @if ($product['tamanio'] == 'S') selected @endif>Chico</option>
+                        <option value="M" @if ($product['tamanio'] == 'M') selected @endif>Mediano</option>
+                        <option value="L" @if ($product['tamanio'] == 'L') selected @endif>Grande</option>
+                        <option value="XL" @if ($product['tamanio'] == 'XL') selected @endif>Familiar</option>
+
+                        @if ($product['tamanio'] == 'M')
+                            Mediano
+                        @endif
+                        @if ($product['tamanio'] == 'L')
+                            Grande
+                        @else
+                            Familiar
+                        @endif
+                    </select>
+                </div>
+                <div>
+                    <label for="precio"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio</label>
+                    <input type="number" name="precio" id="precio"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="$999" required="" value="{{ $product['precio'] }}">
+                </div>
+                <div>
+                    <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Categoria</label>
+                    <select id="categoria" name="categoria"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Selecciona un categoria</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category['id'] }}">{{ $category['nombre'] }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="my-3">
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input name="status" id="status" type="checkbox" value="1" class="sr-only peer"
+                            @if ($product['status'] == '1') checked @endif>
+                        <div
+                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                        </div>
+                        <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Estado (Activo - Inactivo)
                         </span>
                     </label>
                 </div>
 
-            </x-modal-show>
+                <x-modal-confirmation>
+                    <x-slot name="id">
+                        {{ $product['id'] }}
+                    </x-slot>
+
+                    <x-slot name="button">
+                        Editar Producto
+                    </x-slot>
+
+                    <x-slot name="message_confirmation_modal">
+                        ¿Confirma que desea actualizar los datos del Producto {{ $product['nombre'] }}?
+                    </x-slot>
+                </x-modal-confirmation>
+            </x-modal-edit>
         @endforeach
     </x-siderbar>
 </x-app-layout>
+
