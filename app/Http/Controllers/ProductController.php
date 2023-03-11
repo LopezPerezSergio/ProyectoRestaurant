@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -29,20 +30,27 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        //obtengo los datos de categoria
         $url = config('app.api') . '/category/'.$request->categoria;
         $response = Http::get($url);
         
         $category = $response->collect('data');
         $category = ['id' => $category['id'], 'nombre' =>  $category['nombre']];  
 
+        //Subo la imagen al servidor
+        $image = $request->file('url_img')->store('public/products'); //guardo el archivo
+        $url_img = Storage::disk('local')->put('products', $request->file('url_img'));// genero la Url -> products/nomnbre-de-producto
+
+        //Mando los datos que se guardara
         $url = config('app.api') . '/product';
         
         $response = Http::post($url, [
             'nombre' => $request->nombre,
-            'tamaño' => $request->tamaño,
+            'tamanio' => $request->tamanio,
             'precio' => $request->precio,
             'status' => $request->has('status') ? 1 : 0,
             'contador' => 0,
+            'url_img' => $url_img,
             'categoria' => $category
         ]);
 

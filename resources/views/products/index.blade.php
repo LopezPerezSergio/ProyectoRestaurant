@@ -146,7 +146,20 @@
                                             class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {{ $product['nombre'] }}
                                         </th>
-                                        <td class="px-4 py-3">{{ $product['tamaño'] }}</td>
+                                        <td class="px-4 py-3">
+                                            @if ($product['tamanio'] == 'S')
+                                                Chico
+                                            @endif
+                                            @if ($product['tamanio'] == 'M')
+                                                Mediano
+                                            @endif
+                                            @if ($product['tamanio'] == 'L')
+                                                Grande
+                                            @endif
+                                            @if ($product['tamanio'] == 'XL')
+                                                Familiar
+                                            @endif
+                                        </td>
                                         <td class="px-4 py-3">${{ $product['precio'] }}</td>
                                         <td class="px-4 py-3">{{ $product['status'] == '1' ? 'Activo' : 'Inactivo' }}
                                         </td>
@@ -156,8 +169,10 @@
                                             <figure
                                                 class="mt-2 relative max-w-sm transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0">
                                                 <img class="rounded-lg h-28 w-28 mx-auto"
-                                                    src="https://create.vista.com/s3-static/create/uploads/2022/09/cool-menu-examples.webp"
-                                                    alt="category">
+                                                    {{-- src="https://create.vista.com/s3-static/create/uploads/2022/09/cool-menu-examples.webp"
+                                                     --}}
+                                                     src="{{ Storage::url($product['url_img']) }}"
+                                                     alt="category">
                                             </figure>
                                         </td>
                                         <td class="px-4 py-3 flex items-center justify-end">
@@ -291,7 +306,7 @@
                     </div>
 
                     <!-- Modal body -->
-                    <form action="{{ route('product.store') }}" method="POST">
+                    <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="grid gap-4 mb-4 sm:grid-cols-2">
@@ -303,10 +318,10 @@
                                     placeholder="Nombre" required="">
                             </div>
                             <div>
-                                <label for="tamaño"
+                                <label for="tamanio"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                     Tamaño</label>
-                                <select id="tamaño" name="tamaño"
+                                <select id="tamanio" name="tamanio"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     <option selected>Selecciona un tamaño</option>
                                     <option value="S">Chico</option>
@@ -347,6 +362,17 @@
                                 </label>
                             </div>
 
+                            <div class="col-span-2 flex items-center justify-center w-full">
+                                <label for="url_img" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                        <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                    </div>
+                                    <input id="url_img" name="url_img" type="file" class="hidden" accept="image/*"/>
+                                </label>
+                            </div> 
+                            
                             <div>
                                 <button type="submit"
                                     class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
@@ -383,20 +409,21 @@
                         placeholder="Nombre" required="" value="{{ $product['nombre'] }}" disabled>
                 </div>
                 <div>
-                    <label for="tamaño" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    <label for="tamanio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         Tamaño</label>
-                    <select disabled id="tamaño" name="tamaño"
+                    <select disabled id="tamanio" name="tamanio"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="">
-                            @if ($product['tamaño'] == 'S')
+                            @if ($product['tamanio'] == 'S')
                                 Chico
                             @endif
-                            @if ($product['tamaño'] == 'M')
+                            @if ($product['tamanio'] == 'M')
                                 Mediano
                             @endif
-                            @if ($product['tamaño'] == 'L')
+                            @if ($product['tamanio'] == 'L')
                                 Grande
-                            @else
+                            @endif
+                            @if ($product['tamanio'] == 'XL')
                                 Familiar
                             @endif
                         </option>
@@ -456,73 +483,73 @@
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
                     <input type="text" name="nombre" id="nombre"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Nombre" required="" value="{{ $product['nombre'] }}" >
-                    </div>
-                    <div>
-                        <label for="tamaño" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                            Tamaño</label>
-                        <select id="tamaño" name="tamaño"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option>Selecciona un tamaño</option>
-                            <option value="S" @if ($product['tamaño'] == 'S') selected @endif>Chico</option>
-                            <option value="M" @if ($product['tamaño'] == 'M') selected @endif>Mediano</option>
-                            <option value="L" @if ($product['tamaño'] == 'L') selected @endif>Grande</option>
-                            <option value="XL" @if ($product['tamaño'] == 'XL') selected @endif>Familiar</option>
+                        placeholder="Nombre" required="" value="{{ $product['nombre'] }}">
+                </div>
+                <div>
+                    <label for="tamanio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Tamaño</label>
+                    <select id="tamanio" name="tamanio"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option>Selecciona un tamaño</option>
+                        <option value="S" @if ($product['tamanio'] == 'S') selected @endif>Chico</option>
+                        <option value="M" @if ($product['tamanio'] == 'M') selected @endif>Mediano</option>
+                        <option value="L" @if ($product['tamanio'] == 'L') selected @endif>Grande</option>
+                        <option value="XL" @if ($product['tamanio'] == 'XL') selected @endif>Familiar</option>
 
-                            @if ($product['tamaño'] == 'M')
-                                Mediano
-                            @endif
-                            @if ($product['tamaño'] == 'L')
-                                Grande
-                            @else
-                                Familiar
-                            @endif
-                        </select>
-                    </div>
-                    <div>
-                        <label for="precio"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio</label>
-                        <input type="number" name="precio" id="precio"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                            placeholder="$999" required="" value="{{ $product['precio'] }}" >
-                    </div>
-                    <div>
-                        <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                            Categoria</label>
-                        <select id="categoria" name="categoria"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option selected>Selecciona un categoria</option>
-                            @foreach ($categories as $category)
-                                <option value="{{ $category['id'] }}">{{ $category['nombre'] }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="my-3">
-                        <label class="relative inline-flex items-center cursor-pointer">
-                            <input name="status" id="status" type="checkbox" value="1"
-                                class="sr-only peer" @if ($product['status'] == '1') checked @endif >
-                            <div
-                                class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
-                            </div>
-                            <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                Estado (Activo - Inactivo)
-                            </span>
-                        </label>
-                    </div>
+                        @if ($product['tamanio'] == 'M')
+                            Mediano
+                        @endif
+                        @if ($product['tamanio'] == 'L')
+                            Grande
+                        @else
+                            Familiar
+                        @endif
+                    </select>
+                </div>
+                <div>
+                    <label for="precio"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Precio</label>
+                    <input type="number" name="precio" id="precio"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        placeholder="$999" required="" value="{{ $product['precio'] }}">
+                </div>
+                <div>
+                    <label for="categoria" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Categoria</label>
+                    <select id="categoria" name="categoria"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Selecciona un categoria</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category['id'] }}">{{ $category['nombre'] }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="my-3">
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input name="status" id="status" type="checkbox" value="1" class="sr-only peer"
+                            @if ($product['status'] == '1') checked @endif>
+                        <div
+                            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600">
+                        </div>
+                        <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            Estado (Activo - Inactivo)
+                        </span>
+                    </label>
+                </div>
 
-                    <x-modal-confirmation>
-                        <x-slot name="id">
-                            {{ $product['id'] }}
-                        </x-slot>
+                <x-modal-confirmation>
+                    <x-slot name="id">
+                        {{ $product['id'] }}
+                    </x-slot>
 
-                        <x-slot name="button">
-                            Editar Producto
-                        </x-slot>
+                    <x-slot name="button">
+                        Editar Producto
+                    </x-slot>
 
-                        <x-slot name="message_confirmation_modal">
-                            ¿Confirma que desea actualizar los datos del Producto {{ $product['nombre'] }}?
-                        </x-slot>
-                    </x-modal-confirmation>
+                    <x-slot name="message_confirmation_modal">
+                        ¿Confirma que desea actualizar los datos del Producto {{ $product['nombre'] }}?
+                    </x-slot>
+                </x-modal-confirmation>
             </x-modal-edit>
         @endforeach
     </x-siderbar>
