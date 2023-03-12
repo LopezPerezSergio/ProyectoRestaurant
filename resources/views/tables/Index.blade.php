@@ -100,8 +100,8 @@
                                                 <figure
                                                     class="mt-4 relative max-w-sm transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0">
                                                     <img class="rounded-lg h-20 w-20 mx-auto"
-                                                        src="https://img.icons8.com/color/12x/restaurant-table.png"
-                                                        alt="table">
+                                                    src="{{ Storage::url('images/table-100.png') }}"
+                                                    alt="table">
                                                 </figure>
                                             </button>
                                         </div>

@@ -26,14 +26,4 @@ class TableRequest extends FormRequest
             'capacidad' => 'required',
         ];
     }
-    
-    public function messages()
-    {
-        return [
-            'nombre.required' => 'El campo nombre es obligatorio',
-            'nombre.string' => 'El campo nombre debe ser una cadena de caracteres',
-            'nombre.max:25' => 'El campo nombre solo recibe como maximo 25 caracteres',
-            'capacidad.require' => 'El campo capacidad es obligatorio',
-        ];
-    }
 }
