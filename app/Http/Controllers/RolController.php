@@ -16,7 +16,6 @@ class RolController extends Controller
         
         $response = Http::get($url);
         $roles = $response->collect('data');
-        
 
         return view('rol.index' , compact('roles'));
     }
@@ -34,26 +33,9 @@ class RolController extends Controller
         ]);
         
         $response = $response['data'];
-        
         session()->flash('alert-rol', $response);
 
         return redirect()->route('rol.index');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
     }
 
     /**

@@ -183,35 +183,6 @@
                                                         d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
                                                 </svg>
                                             </button>
-
-                                            <div id="{{ $product['id'] }}-dropdown"
-                                                class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                                    aria-labelledby="{{ $product['id'] }}-dropdown-button">
-                                                    <li>
-                                                        {{-- boton de modal show --}}
-                                                        <button id="show{{ $product['id'] }}ModalButton"
-                                                            data-modal-toggle="show{{ $product['id'] }}Modal"
-                                                            type="button"
-                                                            class=" w-full block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                            Ver
-                                                        </button>
-                                                    </li>
-                                                    <li>
-                                                        {{-- boton de modal edit --}}
-                                                        <button id="edit{{ $product['id'] }}ModalButton"
-                                                            data-modal-toggle="edit{{ $product['id'] }}Modal"
-                                                            type="button"
-                                                            class=" w-full block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                            Editar
-                                                        </button>
-                                                    </li>
-                                                </ul>
-                                                <div class="py-1">
-                                                    <a href="#"
-                                                        class="block py-2 px-4 text-sm text-red-700 hover:bg-red-100 dark:hover:bg-gray-600 dark:text-red-400 dark:hover:text-red">Eliminar</a>
-                                                </div>
-                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -368,8 +339,7 @@
                             <div class="flex items-center justify-center w-full">
                                 <label for="image"
                                     class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-solid rounded-lg  dark:bg-gray-700 dark:border-gray-600 ">
-                                    <figure
-                                        class="mt-2 relative max-w-sm duration-300  filter ">
+                                    <figure class="mt-2 relative max-w-sm duration-300  filter ">
                                         <img id="image" class="rounded-lg w-56 mx-auto"
                                             src="{{ Storage::url('images/base_image_productos.png') }}">
                                     </figure>
@@ -405,8 +375,34 @@
             </div>
         </div>
 
-        {{-- Modal Show --}}
         @foreach ($products as $product)
+            <div id="{{ $product['id'] }}-dropdown"
+                class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                    aria-labelledby="{{ $product['id'] }}-dropdown-button">
+                    <li>
+                        {{-- boton de modal show --}}
+                        <button id="show{{ $product['id'] }}ModalButton"
+                            data-modal-toggle="show{{ $product['id'] }}Modal" type="button"
+                            class=" w-full block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            Ver
+                        </button>
+                    </li>
+                    <li>
+                        {{-- boton de modal edit --}}
+                        <button id="edit{{ $product['id'] }}ModalButton"
+                            data-modal-toggle="edit{{ $product['id'] }}Modal" type="button"
+                            class=" w-full block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            Editar
+                        </button>
+                    </li>
+                </ul>
+                <div class="py-1">
+                    <a href="#"
+                        class="block py-2 px-4 text-sm text-red-700 hover:bg-red-100 dark:hover:bg-gray-600 dark:text-red-400 dark:hover:text-red">Eliminar</a>
+                </div>
+            </div>
+            {{-- Modal Show --}}
             <x-modal-show>
                 <x-slot name="modal">
                     {{ $product['id'] }}
@@ -474,10 +470,8 @@
                     </label>
                 </div>
             </x-modal-show>
-        @endforeach
 
-        {{-- Modal Edit --}}
-        @foreach ($products as $product)
+            {{-- Modal Edit --}}
             <x-modal-edit>
                 <x-slot name="modal">
                     {{ $product['id'] }}
@@ -566,6 +560,7 @@
                 </x-modal-confirmation>
             </x-modal-edit>
         @endforeach
+
     </x-siderbar>
 
     <x-slot name="script">

@@ -18,7 +18,6 @@ class EmployeeController extends Controller
         $response = Http::get($url);
         $roles = $response->collect('data');
 
-        
         $url = config('app.api') . '/employee';
         $response = Http::get($url);
         $employees = $response->collect('data');
@@ -52,6 +51,7 @@ class EmployeeController extends Controller
         ]);
         
         $response = $response['data'];
+        
         session()->flash('alert-employee', $response);
 
         return redirect()->route('employee.index');

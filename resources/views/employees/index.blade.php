@@ -134,7 +134,7 @@
                                     <th scope="col" class="px-4 py-3">SUELDO</th>
                                     <th scope="col" class="px-4 py-3">ESTADO</th>
                                     <th scope="col" class="px-4 py-3">Codigo de Acceso</th>
-                                    
+                                    <th scope="col" class="px-4 py-3">Puesto</th>
                                     <th scope="col" class="px-4 py-3">
                                         <span class="sr-only">Actions</span>
                                     </th>
@@ -150,8 +150,10 @@
                                         <td class="px-4 py-3">{{ $employee['apellidos'] }}</td>
                                         <td class="px-4 py-3">{{ $employee['telefono'] }}</td>
                                         <td class="px-4 py-3">${{ $employee['sueldo'] }}</td>
-                                        <td class="px-4 py-3">{{ $employee['status'] == '1' ? 'Activo' : 'Inactivo' }}</td>
+                                        <td class="px-4 py-3">{{ $employee['status'] == '1' ? 'Activo' : 'Inactivo' }}
+                                        </td>
                                         <td class="px-4 py-3">{{ $employee['codigoAcceso'] }}</td>
+                                        <td class="px-4 py-3">Rol</td>
                                         <td class="px-4 py-3 flex items-center justify-end">
                                             <button id="{{ $employee['id'] }}-dropdown-button"
                                                 data-dropdown-toggle="{{ $employee['id'] }}-dropdown"
@@ -163,35 +165,6 @@
                                                         d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
                                                 </svg>
                                             </button>
-
-                                            <div id="{{ $employee['id'] }}-dropdown"
-                                                class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                                    aria-labelledby="{{ $employee['id'] }}-dropdown-button">
-                                                    <li>
-                                                        {{-- boton de modal show --}}
-                                                        <button id="show{{ $employee['id'] }}ModalButton"
-                                                            data-modal-toggle="show{{ $employee['id'] }}Modal"
-                                                            type="button"
-                                                            class=" w-full block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                            Ver
-                                                        </button>
-                                                    </li>
-                                                    <li>
-                                                        {{-- boton de modal edit --}}
-                                                        <button id="edit{{ $employee['id'] }}ModalButton"
-                                                            data-modal-toggle="edit{{ $employee['id'] }}Modal"
-                                                            type="button"
-                                                            class=" w-full block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                            Editar
-                                                        </button>
-                                                    </li>
-                                                </ul>
-                                                <div class="py-1">
-                                                    <a href="#"
-                                                        class="block py-2 px-4 text-sm text-red-700 hover:bg-red-100 dark:hover:bg-gray-600 dark:text-red-400 dark:hover:text-red">Eliminar</a>
-                                                </div>
-                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -257,6 +230,9 @@
             </div>
         </section>
 
+
+
+
         <!-- modal create employee -->
         <div id="createModal" tabindex="-1" aria-hidden="true"
             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
@@ -317,7 +293,8 @@
                             </div>
                             <div>
                                 <label for="codigoAcceso"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Codigo de Acceso</label>
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Codigo de
+                                    Acceso</label>
                                 <input type="text" name="codigoAcceso" id="codigoAcceso"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="************" required="">
@@ -334,7 +311,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="my-9">
+                            <div class="my-3">
                                 <label class="relative inline-flex items-center cursor-pointer">
                                     <input name="status" id="status" type="checkbox" value="1"
                                         class="sr-only peer ">
@@ -346,30 +323,60 @@
                                     </span>
                                 </label>
                             </div>
+                            <div>
+                                <button type="submit"
+                                    class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                    <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    Agregar Nuevo Empleado
+                                </button>
+                            </div>
                         </div>
-                        <button type="submit"
-                            class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                            <svg class="mr-1 -ml-1 w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd"
-                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                    clip-rule="evenodd"></path>
-                            </svg>
-                            Agregar Nuevo Empleado
-                        </button>
                     </form>
                 </div>
             </div>
         </div>
 
-        {{-- Modal Show --}}
+        
         @foreach ($employees as $employee)
+            <div id="{{ $employee['id'] }}-dropdown"
+                class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                    aria-labelledby="{{ $employee['id'] }}-dropdown-button">
+                    <li>
+                        {{-- boton de modal show --}}
+                        <button id="show{{ $employee['id'] }}ModalButton"
+                            data-modal-toggle="show{{ $employee['id'] }}Modal" type="button"
+                            class=" w-full block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            Ver
+                        </button>
+                    </li>
+                    <li>
+                        {{-- boton de modal edit --}}
+                        <button id="edit{{ $employee['id'] }}ModalButton"
+                            data-modal-toggle="edit{{ $employee['id'] }}Modal" type="button"
+                            class=" w-full block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            Editar
+                        </button>
+                    </li>
+                </ul>
+                <div class="py-1">
+                    <a href="#"
+                        class="block py-2 px-4 text-sm text-red-700 hover:bg-red-100 dark:hover:bg-gray-600 dark:text-red-400 dark:hover:text-red">Eliminar</a>
+                </div>
+            </div>
+
+            {{-- Modal Show --}}
             <x-modal-show>
                 <x-slot name="modal">
                     {{ $employee['id'] }}
                 </x-slot>
                 <x-slot name="title">
-                    Empleado: {{ $employee['nombre']. ' '. $employee['apellidos'] }} 
+                    Empleado: {{ $employee['nombre'] . ' ' . $employee['apellidos'] }}
                 </x-slot>
 
                 <div>
@@ -431,10 +438,8 @@
                     </label>
                 </div>
             </x-modal-show>
-        @endforeach
 
-        {{-- Modal Edit --}}
-        @foreach ($employees as $employee)
+            {{-- Modal Edit --}}
             <x-modal-edit>
                 <x-slot name="modal">
                     {{ $employee['id'] }}
