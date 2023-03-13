@@ -167,7 +167,7 @@
                                         <td class="px-4 py-3">
                                             <figure
                                                 class="mt-2 relative max-w-sm transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0">
-                                                <img class="rounded-lg h-28 w-28 mx-auto" {{-- src="https://create.vista.com/s3-static/create/uploads/2022/09/cool-menu-examples.webp"
+                                                <img class="rounded-lg h-28 mx-auto" {{-- src="https://create.vista.com/s3-static/create/uploads/2022/09/cool-menu-examples.webp"
                                                      --}}
                                                     src="{{ Storage::url($product['url_img']) }}" alt="category">
                                             </figure>
@@ -515,14 +515,6 @@
                         <option value="L" @if ($product['tamanio'] == 'L') selected @endif>Grande</option>
                         <option value="XL" @if ($product['tamanio'] == 'XL') selected @endif>Familiar</option>
 
-                        @if ($product['tamanio'] == 'M')
-                            Mediano
-                        @endif
-                        @if ($product['tamanio'] == 'L')
-                            Grande
-                        @else
-                            Familiar
-                        @endif
                     </select>
                 </div>
                 <div>
