@@ -14,12 +14,16 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $url = config('app.api') . '/employee';
+        $url = config('app.api') . '/rol';
+        $response = Http::get($url);
+        $roles = $response->collect('data');
 
+        
+        $url = config('app.api') . '/employee';
         $response = Http::get($url);
         $employees = $response->collect('data');
 
-        return view('employees.index', compact('employees'));
+        return view('employees.index', compact('employees', 'roles'));
     }
 
     /**
@@ -27,6 +31,14 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        //obtener los datos de Rol
+        $url = config('app.api') . '/rol/search-id/'.$request->rol;
+        $response = Http::get($url);
+        
+        $rol = $response->collect('data');
+        $rol = ['id' => $rol['id'], 'nombre' =>  $rol['nombre']];
+
+        //Guardamos el empleado
         $url = config('app.api') . '/employee/';
 
         $response = Http::post($url, [
@@ -35,9 +47,10 @@ class EmployeeController extends Controller
             'telefono' => $request->telefono,
             'status' => $request->has('status') ? 1 : 0,
             'sueldo' => $request->sueldo,
-            'codigoAcceso' => $request->codigoAcceso
+            'codigoAcceso' => $request->codigoAcceso,
+            'rol' => $rol
         ]);
-
+        
         $response = $response['data'];
         session()->flash('alert-employee', $response);
 
@@ -49,6 +62,14 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
+         //obtener los datos de Rol
+         $url = config('app.api') . '/rol/search-id/'.$request->rol;
+         $response = Http::get($url);
+         
+         $rol = $response->collect('data');
+         $rol = ['id' => $rol['id'], 'nombre' =>  $rol['nombre']];
+
+        //Guardamos el empleado
         $url = config('app.api') . '/employee/' . $id;
 
         $response = Http::put($url, [
@@ -57,7 +78,8 @@ class EmployeeController extends Controller
             'telefono' => $request->telefono,
             'status' => $request->has('status') ? 1 : 0,
             'sueldo' => $request->sueldo,
-            'codigoAcceso' => $request->codigoAcceso
+            'codigoAcceso' => $request->codigoAcceso,
+            'rol' => $rol
         ]);
         
         $response = $response['data'];

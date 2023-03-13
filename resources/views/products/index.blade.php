@@ -163,7 +163,7 @@
                                         <td class="px-4 py-3">{{ $product['status'] == '1' ? 'Activo' : 'Inactivo' }}
                                         </td>
                                         <td class="px-4 py-3">{{ $product['contador'] }}</td>
-                                        <td class="px-4 py-3">categoria</td>
+                                        <td class="px-4 py-3">CATEGORIA</td>
                                         <td class="px-4 py-3">
                                             <figure
                                                 class="mt-2 relative max-w-sm transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0">

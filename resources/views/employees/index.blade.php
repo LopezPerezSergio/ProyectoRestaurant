@@ -134,6 +134,7 @@
                                     <th scope="col" class="px-4 py-3">SUELDO</th>
                                     <th scope="col" class="px-4 py-3">ESTADO</th>
                                     <th scope="col" class="px-4 py-3">Codigo de Acceso</th>
+                                    
                                     <th scope="col" class="px-4 py-3">
                                         <span class="sr-only">Actions</span>
                                     </th>
@@ -321,6 +322,18 @@
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="************" required="">
                             </div>
+                            <div>
+                                <label for="rol"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                    Rol</label>
+                                <select id="rol" name="rol"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option selected>Selecciona un rol</option>
+                                    @foreach ($roles as $rol)
+                                        <option value="{{ $rol['id'] }}">{{ $rol['nombre'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="my-9">
                                 <label class="relative inline-flex items-center cursor-pointer">
                                     <input name="status" id="status" type="checkbox" value="1"
@@ -394,6 +407,17 @@
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="************" required="" value="{{ $employee['codigoAcceso'] }}" disabled>
                 </div>
+                <div>
+                    <label for="rol" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Rol</label>
+                    <select disabled id="rol" name="rol"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Selecciona un categoria</option>
+                        @foreach ($roles as $rol)
+                            <option value="{{ $rol['id'] }}">{{ $rol['nombre'] }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="my-9">
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input name="status" id="status" type="checkbox" value="1" class="sr-only peer"
@@ -459,6 +483,17 @@
                     <input type="text" name="codigoAcceso" id="codigoAcceso"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                         placeholder="************" required="" value="{{ $employee['codigoAcceso'] }}">
+                </div>
+                <div>
+                    <label for="rol" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        Rol</label>
+                    <select id="rol" name="rol"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected>Selecciona un rol</option>
+                        @foreach ($roles as $rol)
+                            <option value="{{ $rol['id'] }}">{{ $rol['nombre'] }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="my-9">
                     <label class="relative inline-flex items-center cursor-pointer">
