@@ -317,7 +317,7 @@
                                 </select>
                             </div>
                             <div class="flex items-center justify-center w-full">
-                                <label for="url_img"
+                                <label for="url_img_create"
                                     class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                     <div class="flex flex-col items-center justify-center pt-5 pb-6">
                                         <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none"
@@ -332,15 +332,15 @@
                                                 <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG (MAX.
                                                     800x400px)</p>
                                     </div>
-                                    <input id="url_img" name="url_img" type="file" class="hidden"
+                                    <input id="url_img_create" name="url_img" type="file" class="hidden"
                                         accept="image/*" />
                                 </label>
                             </div>
                             <div class="flex items-center justify-center w-full">
-                                <label for="image"
+                                <label for="image_create"
                                     class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-solid rounded-lg  dark:bg-gray-700 dark:border-gray-600 ">
                                     <figure class="mt-2 relative max-w-sm duration-300  filter ">
-                                        <img id="image" class="rounded-lg w-56 mx-auto"
+                                        <img id="image_create" class="rounded-lg w-56 mx-auto"
                                             src="{{ Storage::url('images/base_image_productos.png') }}">
                                     </figure>
                                 </label>
@@ -457,6 +457,7 @@
                         @endforeach
                     </select>
                 </div>
+                
                 <div class="my-9">
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input name="status" id="status" type="checkbox" value="1" class="sr-only peer"
@@ -467,6 +468,16 @@
                         <span class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">
                             Estado (Activo - Inactivo)
                         </span>
+                    </label>
+                </div>
+                
+                <div class="flex items-center justify-center w-full">
+                    <label for="image"
+                        class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-solid rounded-lg  dark:bg-gray-700 dark:border-gray-600 ">
+                        <figure class="mt-2 relative max-w-sm duration-300  filter ">
+                            <img id="image" class="rounded-lg w-56 mx-auto"
+                                src="{{ Storage::url($product['url_img']) }}">
+                        </figure>
                     </label>
                 </div>
             </x-modal-show>
@@ -532,6 +543,35 @@
                         @endforeach
                     </select>
                 </div>
+                <div class="flex items-center justify-center w-full">
+                    <label for="url_img_update"
+                        class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                            <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                </path>
+                            </svg>
+                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
+                                    class="font-semibold">Haga clic para cargar
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG (MAX.
+                                        800x400px)</p>
+                        </div>
+                        <input id="url_img_update" name="url_img" type="file" class="hidden"
+                            accept="image/*" />
+                    </label>
+                </div>
+                <div class="flex items-center justify-center w-full">
+                    <label for="image_update"
+                        class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-solid rounded-lg  dark:bg-gray-700 dark:border-gray-600 ">
+                        <figure class="mt-2 relative max-w-sm duration-300  filter ">
+                            <img id="image_update" class="rounded-lg w-56 mx-auto"
+                                src="{{ Storage::url($product['url_img']) }}">
+                        </figure>
+                    </label>
+                </div>
                 <div class="my-3">
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input name="status" id="status" type="checkbox" value="1" class="sr-only peer"
@@ -566,16 +606,18 @@
     <x-slot name="script">
         {{-- Codigo JS para interactuar con las imagenes y ver una previsualizacion --}}
         <script>
-            document.getElementById("url_img").addEventListener('change', cambiarImagen);
+            /* funcion para crear */
+            document.getElementById("url_img_create").addEventListener('change', cambiarImagen);
 
             function cambiarImagen(event) {
                 var file = event.target.files[0];
                 var reader = new FileReader();
                 reader.onload = (event) => {
-                    document.getElementById("image").setAttribute('src', event.target.result);
+                    document.getElementById("image_create").setAttribute('src', event.target.result);
                 };
                 reader.readAsDataURL(file);
             }
+
         </script>
     </x-slot>
 </x-app-layout>
