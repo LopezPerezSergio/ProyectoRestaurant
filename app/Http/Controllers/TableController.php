@@ -21,7 +21,6 @@ class TableController extends Controller
         return view('tables.index', compact('tables'));
     }
 
-
     /**
      * Store a newly created resource in storage.
      */
