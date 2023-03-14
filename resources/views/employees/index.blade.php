@@ -333,12 +333,17 @@
                             </div>
                             <div>
                                 <label for="codigoAcceso"
+<<<<<<< HEAD
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     @if($errors->first('codigoAcceso'))
                                     <p class="col-12 text-danger ps-2"><span class="font-medium">{{$errors->first('codigoAcceso')}}</span>Ingrese los datos correctos</p>
                                     @endif
                                     >Codigo de Acceso</label>
                                 <input type="text" name="codigoAcceso" id="codigoAcceso" value="{{old('codigoAcceso')}}"
+=======
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Codigo de Acceso</label>
+                                <input type="text" name="codigoAcceso" id="codigoAcceso"
+>>>>>>> Sergio
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="************" required="">
                             </div>

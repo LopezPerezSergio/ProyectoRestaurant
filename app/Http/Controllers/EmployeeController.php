@@ -37,7 +37,19 @@ class EmployeeController extends Controller
     {
         $request->validate($this->rules);
         $url = config('app.api') . '/employee/';
-        
+
+        if ($request->has('status')) {
+            Http::post($url, [
+                'nombre' => $request->nombre,
+                'apellidos' => $request->apellidos,
+                'telefono' => $request->telefono,
+                'status' => 1,
+                'sueldo' => $request->sueldo
+            ]);
+
+            return  redirect(route('employee.index'));
+        }
+
         $response = Http::post($url, [
             'nombre' => $request->nombre,
             'apellidos' => $request->apellidos,

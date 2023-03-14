@@ -168,8 +168,13 @@
                                             <figure
                                                 class="mt-2 relative max-w-sm transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0">
                                                 <img class="rounded-lg h-28 w-28 mx-auto" {{-- src="https://create.vista.com/s3-static/create/uploads/2022/09/cool-menu-examples.webp"
+<<<<<<< HEAD
                                                     --}}
                                                     src="{{ Storage::url($product['url_img']) }}" alt="category"> alt="category">
+=======
+                                                     --}}
+                                                    src="{{ Storage::url($product['url_img']) }}" alt="category">
+>>>>>>> Sergio
                                             </figure>
                                         </td>
                                         <td class="px-4 py-3 flex items-center justify-end">
@@ -304,7 +309,11 @@
 
                     <!-- Modal body -->
                     <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
+<<<<<<< HEAD
                         @csrf              
+=======
+                        @csrf
+>>>>>>> Sergio
                         <div class="grid gap-4 mb-4 sm:grid-cols-2">
                             <div>
                                 <label for="nombre"
@@ -346,10 +355,17 @@
                                 </select>
                             </div>
                             <div class="flex items-center justify-center w-full">
+<<<<<<< HEAD
                                     <label for="url_img"
                                 class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
                                     <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none"
+=======
+                                <label for="url_img"
+                                    class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                        <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none"
+>>>>>>> Sergio
                                             stroke="currentColor" viewBox="0 0 24 24"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -357,21 +373,38 @@
                                             </path>
                                         </svg>
                                         <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
+<<<<<<< HEAD
                                             class="font-semibold">Haga clic para cargar
                                             <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG (MAX.
                                                 800x400px)</p>
                                     </div>
                                     <input id="url_img" name="url_img" type="file" class="hidden"
                                     accept="image/*" />
+=======
+                                                class="font-semibold">Haga clic para cargar
+                                                <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG (MAX.
+                                                    800x400px)</p>
+                                    </div>
+                                    <input id="url_img" name="url_img" type="file" class="hidden"
+                                        accept="image/*" />
+>>>>>>> Sergio
                                 </label>
                             </div>
                             <div class="flex items-center justify-center w-full">
                                 <label for="image"
+<<<<<<< HEAD
                                 class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-solid rounded-lg  dark:bg-gray-700 dark:border-gray-600 ">
                                 <figure
                                 class="mt-2 relative max-w-sm duration-300  filter ">
                                         <img id="image" class="rounded-lg w-56 mx-auto"
                                         src="{{ Storage::url('images/base_image_productos.png') }}">
+=======
+                                    class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-solid rounded-lg  dark:bg-gray-700 dark:border-gray-600 ">
+                                    <figure
+                                        class="mt-2 relative max-w-sm duration-300  filter ">
+                                        <img id="image" class="rounded-lg w-56 mx-auto"
+                                            src="{{ Storage::url('images/base_image_productos.png') }}">
+>>>>>>> Sergio
                                     </figure>
                                 </label>
                             </div>
@@ -509,7 +542,11 @@
                         <option value="M" @if ($product['tamanio'] == 'M') selected @endif>Mediano</option>
                         <option value="L" @if ($product['tamanio'] == 'L') selected @endif>Grande</option>
                         <option value="XL" @if ($product['tamanio'] == 'XL') selected @endif>Familiar</option>
+<<<<<<< HEAD
                         
+=======
+
+>>>>>>> Sergio
                         @if ($product['tamanio'] == 'M')
                             Mediano
                         @endif
@@ -559,7 +596,11 @@
                     <x-slot name="button">
                         Editar Producto
                     </x-slot>
+<<<<<<< HEAD
                     
+=======
+
+>>>>>>> Sergio
                     <x-slot name="message_confirmation_modal">
                         ¿Confirma que desea actualizar los datos del Producto {{ $product['nombre'] }}?
                     </x-slot>
@@ -568,11 +609,18 @@
         @endforeach
     </x-siderbar>
 
+<<<<<<< HEAD
     
+=======
+>>>>>>> Sergio
     <x-slot name="script">
         {{-- Codigo JS para interactuar con las imagenes y ver una previsualizacion --}}
         <script>
             document.getElementById("url_img").addEventListener('change', cambiarImagen);
+<<<<<<< HEAD
+=======
+
+>>>>>>> Sergio
             function cambiarImagen(event) {
                 var file = event.target.files[0];
                 var reader = new FileReader();
@@ -584,4 +632,7 @@
         </script>
     </x-slot>
 </x-app-layout>
+<<<<<<< HEAD
 
+=======
+>>>>>>> Sergio
