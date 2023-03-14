@@ -132,6 +132,7 @@
                                     <th scope="col" class="px-4 py-3">ESTADO</th>
                                     <th scope="col" class="px-4 py-3">VENDIDOS EN EL DIA</th>
                                     <th scope="col" class="px-4 py-3">CATEGORIA</th>
+                                    <th scope="col" class="px-4 py-3">MEJOR VENDIDO</th>
                                     <th scope="col" class="px-4 py-3">IMAGEN</th>
                                     <th scope="col" class="px-4 py-3">
                                         <span class="sr-only">Actions</span>
@@ -163,18 +164,27 @@
                                         <td class="px-4 py-3">{{ $product['status'] == '1' ? 'Activo' : 'Inactivo' }}
                                         </td>
                                         <td class="px-4 py-3">{{ $product['contador'] }}</td>
-                                        <td class="px-4 py-3">categoria</td>
+                                        <td class="px-4 py-3">CATEGORIA</td>
+                                        <td class="px-4 py-3">
+                                            <div class="flex items-center mb-5">
+                                                <svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>First star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                                <svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Second star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                                <svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Third star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                                <svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Fourth star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                                <svg aria-hidden="true" class="w-5 h-5 text-gray-300 dark:text-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Fifth star</title><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                            </div>
+                                        </td>
                                         <td class="px-4 py-3">
                                             <figure
                                                 class="mt-2 relative max-w-sm transition-all duration-300 cursor-pointer filter grayscale hover:grayscale-0">
-                                                <img class="rounded-lg h-28 w-28 mx-auto" {{-- src="https://create.vista.com/s3-static/create/uploads/2022/09/cool-menu-examples.webp"
+                                                <img class="rounded-lg h-28 mx-auto" {{-- src="https://create.vista.com/s3-static/create/uploads/2022/09/cool-menu-examples.webp"
                                                      --}}
                                                     src="{{ Storage::url($product['url_img']) }}" alt="category">
                                             </figure>
                                         </td>
                                         <td class="px-4 py-3 flex items-center justify-end">
                                             <button id="{{ $product['id'] }}-dropdown-button"
-                                                data-dropdown-toggle="{{ $product['id'] }}-dropdown"
+                                                data-dropdown-toggle="{{ $product['id'] }}-dropdown" {{-- Nombre de la ventana de opciones --}}
                                                 class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
                                                 type="button">
                                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor"
@@ -183,35 +193,6 @@
                                                         d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
                                                 </svg>
                                             </button>
-
-                                            <div id="{{ $product['id'] }}-dropdown"
-                                                class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                                    aria-labelledby="{{ $product['id'] }}-dropdown-button">
-                                                    <li>
-                                                        {{-- boton de modal show --}}
-                                                        <button id="show{{ $product['id'] }}ModalButton"
-                                                            data-modal-toggle="show{{ $product['id'] }}Modal"
-                                                            type="button"
-                                                            class=" w-full block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                            Ver
-                                                        </button>
-                                                    </li>
-                                                    <li>
-                                                        {{-- boton de modal edit --}}
-                                                        <button id="edit{{ $product['id'] }}ModalButton"
-                                                            data-modal-toggle="edit{{ $product['id'] }}Modal"
-                                                            type="button"
-                                                            class=" w-full block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                            Editar
-                                                        </button>
-                                                    </li>
-                                                </ul>
-                                                <div class="py-1">
-                                                    <a href="#"
-                                                        class="block py-2 px-4 text-sm text-red-700 hover:bg-red-100 dark:hover:bg-gray-600 dark:text-red-400 dark:hover:text-red">Eliminar</a>
-                                                </div>
-                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -346,7 +327,7 @@
                                 </select>
                             </div>
                             <div class="flex items-center justify-center w-full">
-                                <label for="url_img"
+                                <label for="url_img_create"
                                     class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                     <div class="flex flex-col items-center justify-center pt-5 pb-6">
                                         <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none"
@@ -361,16 +342,15 @@
                                                 <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG (MAX.
                                                     800x400px)</p>
                                     </div>
-                                    <input id="url_img" name="url_img" type="file" class="hidden"
+                                    <input id="url_img_create" name="url_img" type="file" class="hidden"
                                         accept="image/*" />
                                 </label>
                             </div>
                             <div class="flex items-center justify-center w-full">
-                                <label for="image"
+                                <label for="image_create"
                                     class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-solid rounded-lg  dark:bg-gray-700 dark:border-gray-600 ">
-                                    <figure
-                                        class="mt-2 relative max-w-sm duration-300  filter ">
-                                        <img id="image" class="rounded-lg w-56 mx-auto"
+                                    <figure class="mt-2 relative max-w-sm duration-300  filter ">
+                                        <img id="image_create" class="rounded-lg w-56 mx-auto"
                                             src="{{ Storage::url('images/base_image_productos.png') }}">
                                     </figure>
                                 </label>
@@ -405,8 +385,34 @@
             </div>
         </div>
 
-        {{-- Modal Show --}}
         @foreach ($products as $product)
+            <div id="{{ $product['id'] }}-dropdown"
+                class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                    aria-labelledby="{{ $product['id'] }}-dropdown-button">
+                    <li>
+                        {{-- boton de modal show --}}
+                        <button id="show{{ $product['id'] }}ModalButton"
+                            data-modal-toggle="show{{ $product['id'] }}Modal" type="button"
+                            class=" w-full block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            Ver
+                        </button>
+                    </li>
+                    <li>
+                        {{-- boton de modal edit --}}
+                        <button id="edit{{ $product['id'] }}ModalButton" {{-- edit5ModalButton --}}
+                            data-modal-toggle="edit{{ $product['id'] }}Modal" type="button"
+                            class=" w-full block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            Editar
+                        </button>
+                    </li>
+                </ul>
+                <div class="py-1">
+                    <a href="#"
+                        class="block py-2 px-4 text-sm text-red-700 hover:bg-red-100 dark:hover:bg-gray-600 dark:text-red-400 dark:hover:text-red">Eliminar</a>
+                </div>
+            </div>
+            {{-- Modal Show --}}
             <x-modal-show>
                 <x-slot name="modal">
                     {{ $product['id'] }}
@@ -461,6 +467,7 @@
                         @endforeach
                     </select>
                 </div>
+                
                 <div class="my-9">
                     <label class="relative inline-flex items-center cursor-pointer">
                         <input name="status" id="status" type="checkbox" value="1" class="sr-only peer"
@@ -473,11 +480,19 @@
                         </span>
                     </label>
                 </div>
+                
+                <div class="flex items-center justify-center w-full">
+                    <label for="image"
+                        class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-solid rounded-lg  dark:bg-gray-700 dark:border-gray-600 ">
+                        <figure class="mt-2 relative max-w-sm duration-300  filter ">
+                            <img id="image" class="rounded-lg w-56 mx-auto"
+                                src="{{ Storage::url($product['url_img']) }}">
+                        </figure>
+                    </label>
+                </div>
             </x-modal-show>
-        @endforeach
 
-        {{-- Modal Edit --}}
-        @foreach ($products as $product)
+            {{-- Modal Edit --}}
             <x-modal-edit>
                 <x-slot name="modal">
                     {{ $product['id'] }}
@@ -509,14 +524,6 @@
                         <option value="M" @if ($product['tamanio'] == 'M') selected @endif>Mediano</option>
                         <option value="L" @if ($product['tamanio'] == 'L') selected @endif>Grande</option>
                         <option value="XL" @if ($product['tamanio'] == 'XL') selected @endif>Familiar</option>
-                        @if ($product['tamanio'] == 'M')
-                            Mediano
-                        @endif
-                        @if ($product['tamanio'] == 'L')
-                            Grande
-                        @else
-                            Familiar
-                        @endif
                     </select>
                 </div>
                 <div>
@@ -536,6 +543,35 @@
                             <option value="{{ $category['id'] }}">{{ $category['nombre'] }}</option>
                         @endforeach
                     </select>
+                </div>
+                <div class="flex items-center justify-center w-full">
+                    <label for="url_img_update"
+                        class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                            <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                </path>
+                            </svg>
+                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
+                                    class="font-semibold">Haga clic para cargar
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG (MAX.
+                                        800x400px)</p>
+                        </div>
+                        <input id="url_img_update" name="url_img" type="file" class="hidden"
+                            accept="image/*" />
+                    </label>
+                </div>
+                <div class="flex items-center justify-center w-full">
+                    <label for="image_update"
+                        class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-solid rounded-lg  dark:bg-gray-700 dark:border-gray-600 ">
+                        <figure class="mt-2 relative max-w-sm duration-300  filter ">
+                            <img id="image_update" class="rounded-lg w-56 mx-auto"
+                                src="{{ Storage::url($product['url_img']) }}">
+                        </figure>
+                    </label>
                 </div>
                 <div class="my-3">
                     <label class="relative inline-flex items-center cursor-pointer">
@@ -564,17 +600,19 @@
                 </x-modal-confirmation>
             </x-modal-edit>
         @endforeach
+
     </x-siderbar>
 
     <x-slot name="script">
         {{-- Codigo JS para interactuar con las imagenes y ver una previsualizacion --}}
         <script>
             document.getElementById("url_img").addEventListener('change', cambiarImagen);
+
             function cambiarImagen(event) {
                 var file = event.target.files[0];
                 var reader = new FileReader();
                 reader.onload = (event) => {
-                    document.getElementById("image").setAttribute('src', event.target.result);
+                    document.getElementById("image_create").setAttribute('src', event.target.result);
                 };
                 reader.readAsDataURL(file);
             }

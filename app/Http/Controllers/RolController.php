@@ -5,60 +5,62 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class CategoryController extends Controller
+class RolController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $url = config('app.api') . '/category';
-
+        $url = config('app.api') . '/rol';
+        
         $response = Http::get($url);
-        $categories = $response->collect('data'); /* { id => '1', nombre => ''Jenni, productos => { {}, {}, {} ... } */
+        $roles = $response->collect('data');
 
-        return view('categories.index', compact('categories'));
+        return view('rol.index' , compact('roles'));
     }
 
+    
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $url = config('app.api') . '/category';
+        $url = config('app.api') . '/rol/';
 
         $response = Http::post($url, [
             'nombre' => $request->nombre,
         ]);
-
+        
         $response = $response['data'];
-        session()->flash('alert-category', $response);
+        session()->flash('alert-rol', $response);
 
-        return redirect()->route('category.index');
+        return redirect()->route('rol.index');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, string $id)
     {
-        $url = config('app.api') . '/category/'.$id;
+        $url = config('app.api') . '/rol/'.$id;
 
         $response = Http::put($url, [
             'nombre' => $request->nombre,
         ]);
 
         $response = $response['data'];
-        session()->flash('alert-category', $response);
+        session()->flash('alert-rol', $response);
         
-        return redirect()->route('category.index');
+        return redirect()->route('rol.index');
     }
 
     /**
      * Remove the specified resource from storage.
+     * PENDIENTE JEJEJE :)
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, string $id)
     {
-        //
+        $url = config('app.api') . '/rol/'.$id; 
     }
 }

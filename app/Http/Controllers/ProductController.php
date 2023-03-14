@@ -16,7 +16,7 @@ class ProductController extends Controller
         $url = config('app.api') . '/category';
         $response = Http::get($url);
         $categories = $response->collect('data');
-
+        
         $url = config('app.api') . '/product';
         $response = Http::get($url);
         $products = $response->collect('data');

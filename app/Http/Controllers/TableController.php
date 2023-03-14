@@ -21,7 +21,6 @@ class TableController extends Controller
         return view('tables.index', compact('tables'));
     }
 
-
     /**
      * Store a newly created resource in storage.
      */
@@ -35,6 +34,8 @@ class TableController extends Controller
             'status' => $request->has('status') ? 1 : 0,
         ]);
 
+        return $response;
+        
         $response = $response['data'];
         session()->flash('alert-table', $response);
 

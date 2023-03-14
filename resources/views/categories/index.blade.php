@@ -79,7 +79,11 @@
 
                                             <button
                                                 class="block max-w-sm p-2 h-56 bg-yellow-300 hover:bg-yellow-200 border border-gray-200 rounded-lg shadow dark:border-gray-700"
-                                                type="button">
+                                                type="button"
+                                                data-drawer-target="drawer-right-products-{{ $category['id'] }}"
+                                                data-drawer-show="drawer-right-products-{{ $category['id'] }}"
+                                                data-drawer-placement="right"
+                                                aria-controls="drawer-right-products-{{ $category['id'] }}">
                                                 <h5 class="text-xl font-bold tracking-tight text-white">
                                                     Presiona aqui para visualizar la lista de {{ $category['nombre'] }}
                                                 </h5>
@@ -91,6 +95,7 @@
                                                 </figure>
                                             </button>
                                         </div>
+
 
                                         <div id="{{ $category['id'] }}-dropdown"
                                             class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
@@ -118,6 +123,7 @@
                     </div>
                 </div>
             </div>
+
         </section>
 
         <!-- modal create -->
@@ -176,6 +182,74 @@
         </div>
 
         @foreach ($categories as $category)
+            <!-- Lista de productos de cada categoria -->
+            <div id="drawer-right-products-{{ $category['id'] }}"
+                class="w-full max-w-md fixed top-0 right-0 z-40 h-screen pt-20 overflow-y-auto transition-transform translate-x-full bg-white dark:bg-gray-800"
+                tabindex="-1" aria-labelledby="drawer-right-products-{{ $category['id'] }}-label">
+
+                <div class="h-full p-4 overflow-y-auto bg-yellow-100 dark:bg-gray-800">
+                    <div class="flex items-center justify-between mb-4">
+                        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Productos de
+                            {{ $category['nombre'] }}</h5>
+                        <a href="{{ route('product.index') }}"
+                            class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
+                            Ver todo
+                        </a>
+                    </div>
+
+                    <div class="flow-root">
+                        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                            @if ($category['productos'] === [])
+                                <li class="py-3 sm:py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-1 min-w-0">
+                                            <h5 class="text-m font-bold leading-none text-gray-900 dark:text-white">
+                                                Esta categoria aun no tiene Productos
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </li>
+                            @else
+                                @foreach ($category['productos'] as $product)
+                                    <li class="py-3 sm:py-4">
+                                        <div class="flex items-center space-x-4">
+                                            <div class="flex-shrink-0">
+                                                <img class="w-8 h-8 rounded-full"
+                                                    src="{{ Storage::url($product['url_img']) }}" alt="image">
+                                            </div>
+                                            <div class="flex-1 min-w-0">
+                                                <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                    {{ $product['nombre'] }}
+                                                </p>
+                                                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                    @if ($product['tamanio'] == 'S')
+                                                        Chico
+                                                    @endif
+                                                    @if ($product['tamanio'] == 'M')
+                                                        Mediano
+                                                    @endif
+                                                    @if ($product['tamanio'] == 'L')
+                                                        Grande
+                                                    @endif
+                                                    @if ($product['tamanio'] == 'XL')
+                                                        Familiar
+                                                    @endif
+                                                </p>
+                                            </div>
+                                            <div
+                                                class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                                ${{ $product['precio'] }}
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endforeach
+                            @endif
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            
             <x-modal-edit>
                 <x-slot name="modal">
                     {{ $category['id'] }}
