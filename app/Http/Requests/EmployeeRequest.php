@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class EmployeeRequest extends FormRequest
 {
+    protected $redirectRoute = 'employee.store';
     /**
      * Determine if the user is authorized to make this request.
      */

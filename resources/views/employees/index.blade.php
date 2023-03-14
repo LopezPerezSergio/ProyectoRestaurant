@@ -1,3 +1,4 @@
+
 <x-app-layout>
     <x-siderbar>
         <section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 sm:rounded-lg">
@@ -293,7 +294,7 @@
                                     <p  class="col-12 text-danger ps-2"><span class="font-medium">{{$errors->first('nombre')}}</span>Ingrese los datos correctos</p>
                                     @endif
                                     >Nombre</label>
-                                <input type="text" name="nombre" id="nombre"
+                                <input type="text" name="nombre" id="nombre" value="{{old('nombre')}}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Nombre" required="">
                             </div>
@@ -304,28 +305,40 @@
                                     <p class="col-12 text-danger ps-2"><span class="font-medium">{{$errors->first('apellidos')}}</span>Ingrese los datos correctos</p>
                                     @endif
                                     >Apellidos</label>
-                                <input type="text" name="apellidos" id="apellidos"
+                                <input type="text" name="apellidos" id="apellidos" value="{{old('apellidos')}}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Product brand" required="">
                             </div>
                             <div>
                                 <label for="telefono"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Telefono</label>
-                                <input type="text" name="telefono" id="telefono"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    @if($errors->first('telefono'))
+                                    <p class="col-12 text-danger ps-2"><span class="font-medium">{{$errors->first('telefono')}}</span>Ingrese los datos correctos</p>
+                                    @endif
+                                    >Telefono</label>
+                                <input type="text" name="telefono" id="telefono" value="{{old('telefono')}}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="Product brand" required="">
                             </div>
                             <div>
                                 <label for="sueldo"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Sueldo</label>
-                                <input type="number" name="sueldo" id="sueldo"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    @if($errors->first('sueldo'))
+                                    <p class="col-12 text-danger ps-2"><span class="font-medium">{{$errors->first('sueldo')}}</span>Ingrese los datos correctos</p>
+                                    @endif
+                                    >Sueldo</label>
+                                <input type="number" name="sueldo" id="sueldo" value="{{old('sueldo')}}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="$2999" required="">
                             </div>
                             <div>
                                 <label for="codigoAcceso"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Codigo de Acceso</label>
-                                <input type="text" name="codigoAcceso" id="codigoAcceso"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    @if($errors->first('codigoAcceso'))
+                                    <p class="col-12 text-danger ps-2"><span class="font-medium">{{$errors->first('codigoAcceso')}}</span>Ingrese los datos correctos</p>
+                                    @endif
+                                    >Codigo de Acceso</label>
+                                <input type="text" name="codigoAcceso" id="codigoAcceso" value="{{old('codigoAcceso')}}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                                     placeholder="************" required="">
                             </div>
@@ -498,3 +511,13 @@
         @endforeach
     </x-siderbar>
 </x-app-layout>
+
+@section('scrip')
+ <script src="./js/Validaciones/empleados.js"></script>
+ @if($errors->hasAny('nombre', 'apellidos','telefono', 'sueldo', 'codigoAcceso'))
+ <script>
+     let modalRegistro = new Modal(document.getElementById('createModal'),null);
+     modalRegistro.show();
+ </script>
+@endif
+@endsection
