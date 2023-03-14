@@ -15,7 +15,7 @@ class CategoryController extends Controller
         $url = config('app.api') . '/category';
 
         $response = Http::get($url);
-        $categories = $response->collect('data');
+        $categories = $response->collect('data'); /* { id => '1', nombre => ''Jenni, productos => { {}, {}, {} ... } */
 
         return view('categories.index', compact('categories'));
     }

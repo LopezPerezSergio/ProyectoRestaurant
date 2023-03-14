@@ -249,6 +249,7 @@
                 </div>
 
             </div>
+            
             <x-modal-edit>
                 <x-slot name="modal">
                     {{ $category['id'] }}

@@ -35,6 +35,8 @@ class TableController extends Controller
             'status' => $request->has('status') ? 1 : 0,
         ]);
 
+        return $response;
+        
         $response = $response['data'];
         session()->flash('alert-table', $response);
 

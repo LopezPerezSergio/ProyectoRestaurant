@@ -47,7 +47,7 @@ class EmployeeController extends Controller
             'status' => $request->has('status') ? 1 : 0,
             'sueldo' => $request->sueldo,
             'codigoAcceso' => $request->codigoAcceso,
-            'rol' => $rol
+            'rol' => $rol /* { id => 1, nombre => 'nombre} */
         ]);
         
         $response = $response['data'];
