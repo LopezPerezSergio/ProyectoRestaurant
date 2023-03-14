@@ -1,13 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Requests\EmpleadosRequest;
+
+use App\Http\Requests\EmployeeRequest;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class EmployeeController extends Controller
 {
-    
+    private $rules = [
+        'nombre' => 'required|regex:/^[A-Z][A-Z,a-z, ,á,é,í,ó,ú]+$/',
+            'apellidos' => 'required|regex:/^[A-Z][A-Z,a-z, ,á,é,í,ó,ú]+$/',
+            'telefono' => 'required|numeric:/^[0-9]{10}$/',
+            'sueldo' => 'required|regex:/^([0-9]{1,3}\.[0-9]{2})$/',
+            'codigoAcceso' => 'required|numeric:/^[0-9]{4}$/',
+
+    ];
     /**
      * Display a listing of the resource.
      */
@@ -25,22 +34,23 @@ class EmployeeController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    { 
-        return $request;
+    {
+        $request->validate($this->rules);
         $url = config('app.api') . '/employee/';
-        //Validacion de los campos
-       // $request->validate($this->rules);
+        
         $response = Http::post($url, [
             'nombre' => $request->nombre,
             'apellidos' => $request->apellidos,
             'telefono' => $request->telefono,
             'status' => $request->has('status') ? 1 : 0,
-            'codigoAcceso' => $request->codigoAcceso,
-            'sueldo' => $request->sueldo
+            'sueldo' => $request->sueldo,
+            'codigoAcceso' => $request->codigoAcceso
         ]);
 
         $response = $response['data'];
-        return redirect()->route('employee.index')->with('alert', $response);
+        session()->flash('alert-employee', $response);
+
+        return redirect()->route('employee.index');
     }
 
     /**
@@ -48,7 +58,6 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-      
         $url = config('app.api') . '/employee/' . $id;
 
         $response = Http::put($url, [
@@ -56,12 +65,14 @@ class EmployeeController extends Controller
             'apellidos' => $request->apellidos,
             'telefono' => $request->telefono,
             'status' => $request->has('status') ? 1 : 0,
-            'codigoAcceso' => $request->codigoAcceso,
-            'sueldo' => $request->sueldo
+            'sueldo' => $request->sueldo,
+            'codigoAcceso' => $request->codigoAcceso
         ]);
+        
         $response = $response['data'];
+        session()->flash('alert-employee', $response);
 
-        return  redirect()->route('employee.index')->with('alert', $response);
+        return redirect()->route('employee.index');
     }
 
     /**
